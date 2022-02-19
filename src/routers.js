@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { authentication } from "./auth";
 import MenuPrincipal from "./pages/home/menu-principal";
 import Login from "./pages/login";
+import Register from "./pages/register";
 import Fotolito from "./pages/products/Fotolito";
 import Chapas from "./pages/products/Chapas";
 import Tintas from "./pages/products/Tintas";
@@ -16,6 +17,7 @@ const Rotas = () => (
 	<BrowserRouter>
 		<Routes>
 			<Route path="/" element={<Login />} />
+			<Route path="/Cadastro" element={<Register />} />
 			<Route path="/menu" element={<MenuPrincipal />} />
 			<Route path="/fotolito" element={<Fotolito />} />
 			<Route path="/chapas" element={<Chapas />} />

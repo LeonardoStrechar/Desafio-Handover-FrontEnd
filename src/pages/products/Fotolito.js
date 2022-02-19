@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
+import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
 
 import { ReactComponent as ImgFotolito } from "../../images/Fotolito.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
@@ -98,7 +98,7 @@ export default function Fotolito() {
 					<Grid>
 						<InfoProducts>
 							<ImgFotolito />
-							<form>
+							<form action="/menu">
 								<div style={divStyle}>
 									<Label style={LabelStyle} color="white">
 										Nome
@@ -108,7 +108,7 @@ export default function Fotolito() {
 								<br />
 								<div>
 									<Label style={LabelStyle} color="white">
-										Tipo
+										Litragem
 									</Label>
 									<Select name="litragem">
 										<option required selected disabled>
@@ -125,13 +125,16 @@ export default function Fotolito() {
 									</Label>
 									<Input required style={InputStyle} type="number" placeholder="Quantidade de filmes" />
 								</div>
+								<div style={divStyle}>
+									<Salvar value="SALVAR" placeholder="SALVAR" />
+								</div>
 							</form>
 						</InfoProducts>
 						<InfoProducts>
 							<form>
 								<SelectDados>
-									<Dados>Nome - tipo - quantidade</Dados>
-									<Dados>Nome - tipo - quantidade</Dados>
+									<Dados>Nome - Tipo - Quantidade</Dados>
+									<Dados>Nome - Tipo - Quantidade</Dados>
 								</SelectDados>
 							</form>
 						</InfoProducts>

@@ -182,11 +182,30 @@ export const Logout = styled.input.attrs((props) => ({
 		font-weight: 800;
 	}
 `;
+export const Salvar = styled.input.attrs((props) => ({
+	type: "submit",
+}))`
+	position: relative;
+	width: 180px;
+	background: white;
+	border: none;
+	border-radius: 20px;
+	color: black;
+
+	padding: 10px;
+	font-weight: 800;
+	&:hover {
+		background: #ffa200;
+		color: white;
+		font-weight: bolder;
+		font-weight: 800;
+	}
+`;
 
 export const Grid = styled.div`
 	position: relative;
 	display: flex;
-	padding: 20px;
+	padding: 10px;
 `;
 
 export const InfoTable = styled.div`

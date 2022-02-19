@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
+import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
 
-import { ReactComponent as ImgFotolito } from "../../images/Fotolito.svg";
+import { ReactComponent as ImgQuimicos } from "../../images/Quimicos.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
 import { ReactComponent as IconFacebook } from "../../images/IconFacebook.svg";
 import { ReactComponent as IconInstagram } from "../../images/IconInstagram.svg";
@@ -78,7 +78,7 @@ export default function Quimicos() {
 					</a>
 					<Title fontSize={20}>PRODUTOS</Title>
 					<a href="/Fotolito">
-						<ButtonSidebar style={ColorWhiteStyle}>Fotolito</ButtonSidebar>
+						<ButtonSidebar>Fotolito</ButtonSidebar>
 					</a>
 					<a href="/Chapas">
 						<ButtonSidebar>Chapas</ButtonSidebar>
@@ -87,17 +87,17 @@ export default function Quimicos() {
 						<ButtonSidebar>Tintas</ButtonSidebar>
 					</a>
 					<a href="/Quimicos">
-						<ButtonSidebar>Quimicos</ButtonSidebar>
+						<ButtonSidebar style={ColorWhiteStyle}>Quimicos</ButtonSidebar>
 					</a>
 					<a href="/">
 						<Logout value="LOGOUT" placeholder="LOGOUT" />
 					</a>
 				</Sidebar>
 				<Viwer>
-					<h3>Fotolito</h3>
+					<h3>Quimicos</h3>
 					<Grid>
 						<InfoProducts>
-							<ImgFotolito />
+							<ImgQuimicos />
 							<form>
 								<div style={divStyle}>
 									<Label style={LabelStyle} color="white">
@@ -108,15 +108,16 @@ export default function Quimicos() {
 								<br />
 								<div>
 									<Label style={LabelStyle} color="white">
-										Tipo
+										Usabilidade
 									</Label>
 									<Select name="litragem">
 										<option required selected disabled>
 											Selecione
 										</option>
-										<option value="20 LTS">20 Litros</option>
-										<option value="18 LTS">18 Litros</option>
-										<option value="5 LTS">5 Litros</option>
+										<option value="20 LTS">Solução de forno</option>
+										<option value="18 LTS">Revelador</option>
+										<option value="5 LTS">Corretivo</option>
+										<option value="5 LTS">Anti-Misting</option>
 									</Select>
 								</div>
 								<div style={divStyle}>
@@ -124,6 +125,9 @@ export default function Quimicos() {
 										Quantidade
 									</Label>
 									<Input required style={InputStyle} type="number" placeholder="Quantidade de filmes" />
+								</div>
+								<div style={divStyle}>
+									<Salvar value="SALVAR" placeholder="SALVAR" />
 								</div>
 							</form>
 						</InfoProducts>

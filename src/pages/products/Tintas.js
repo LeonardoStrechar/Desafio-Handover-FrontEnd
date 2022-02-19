@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
+import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
 
-import { ReactComponent as ImgFotolito } from "../../images/Fotolito.svg";
+import { ReactComponent as ImgTinta } from "../../images/Tinta.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
 import { ReactComponent as IconFacebook } from "../../images/IconFacebook.svg";
 import { ReactComponent as IconInstagram } from "../../images/IconInstagram.svg";
@@ -78,13 +78,13 @@ export default function Tintas() {
 					</a>
 					<Title fontSize={20}>PRODUTOS</Title>
 					<a href="/Fotolito">
-						<ButtonSidebar style={ColorWhiteStyle}>Fotolito</ButtonSidebar>
+						<ButtonSidebar>Fotolito</ButtonSidebar>
 					</a>
 					<a href="/Chapas">
 						<ButtonSidebar>Chapas</ButtonSidebar>
 					</a>
 					<a href="/Tintas">
-						<ButtonSidebar>Tintas</ButtonSidebar>
+						<ButtonSidebar style={ColorWhiteStyle}>Tintas</ButtonSidebar>
 					</a>
 					<a href="/Quimicos">
 						<ButtonSidebar>Quimicos</ButtonSidebar>
@@ -94,11 +94,11 @@ export default function Tintas() {
 					</a>
 				</Sidebar>
 				<Viwer>
-					<h3>Fotolito</h3>
+					<h3>Tintas</h3>
 					<Grid>
 						<InfoProducts>
-							<ImgFotolito />
-							<form>
+							<ImgTinta />
+							<form action="/tintas">
 								<div style={divStyle}>
 									<Label style={LabelStyle} color="white">
 										Nome
@@ -114,9 +114,8 @@ export default function Tintas() {
 										<option required selected disabled>
 											Selecione
 										</option>
-										<option value="20 LTS">20 Litros</option>
-										<option value="18 LTS">18 Litros</option>
-										<option value="5 LTS">5 Litros</option>
+										<option value="Verão">verão</option>
+										<option value="Inverno">inverno</option>
 									</Select>
 								</div>
 								<div style={divStyle}>
@@ -124,6 +123,9 @@ export default function Tintas() {
 										Quantidade
 									</Label>
 									<Input required style={InputStyle} type="number" placeholder="Quantidade de filmes" />
+								</div>
+								<div style={divStyle}>
+									<Salvar value="SALVAR" placeholder="SALVAR" />
 								</div>
 							</form>
 						</InfoProducts>

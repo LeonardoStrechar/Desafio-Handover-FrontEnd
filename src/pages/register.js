@@ -5,7 +5,7 @@ import { ReactComponent as IconFacebook } from "../images/IconFacebook.svg";
 import { ReactComponent as IconInstagram } from "../images/IconInstagram.svg";
 import { ReactComponent as IconLinkedin } from "../images/IconLinkedin.svg";
 
-const Login = () => {
+export default function Register() {
 	return (
 		<div>
 			<Svg>
@@ -17,24 +17,24 @@ const Login = () => {
 					<SubTitle fontSize={25}>Projeto Full-Stack</SubTitle>
 				</div>
 				<div>
-					<Title fontSize={23}>Acesse seu armario</Title>
-					<form action="/menu">
+					<Title fontSize={23}>Preencha os campos</Title>
+					<form action="/">
 						<Border>
 							<Table padding={30}>
-								<Label color="white">Usuário</Label>
+								<Label color="white">Nome</Label>
 								<br />
-								<Input required type="text" placeholder="Digite seu usuário" />
+								<Input type="text" required placeholder="Digite seu nome completo" />
+								<br />
+								<Label color="white">E-mail</Label>
+								<br />
+								<Input type="email" required placeholder="Digite seu email" />
 								<br />
 								<Label color="white">Senha</Label>
 								<br />
-								<Input required type="password" placeholder="Digite sua senha" />
+								<Input type="password" required placeholder="Digite sua senha" />
 								<br />
 							</Table>
-							<ButtonLogin type="submit" value="ENTRAR" placeholder="ENTRAR" />
-							<Title fontSize={15}>OU</Title>
-							<Title fontSize={15}>
-								<Link href="/Cadastro">CADASTRE-SE</Link>
-							</Title>
+							<ButtonLogin type="submit" value="CADASTRE-SE" placeholder="CADASTRE-SE" />
 							<RedesSociais>
 								<Rede>
 									<a href="https://www.facebook.com/leonardo.strechar.1" target="_blank">
@@ -56,5 +56,4 @@ const Login = () => {
 			</Container>
 		</div>
 	);
-};
-export default Login;
+}

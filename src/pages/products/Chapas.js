@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
+import { Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados, Salvar } from "../style-components";
 
-import { ReactComponent as ImgFotolito } from "../../images/Fotolito.svg";
+import { ReactComponent as ImgChapa } from "../../images/Chapas.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
 import { ReactComponent as IconFacebook } from "../../images/IconFacebook.svg";
 import { ReactComponent as IconInstagram } from "../../images/IconInstagram.svg";
@@ -78,10 +78,10 @@ export default function Chapas() {
 					</a>
 					<Title fontSize={20}>PRODUTOS</Title>
 					<a href="/Fotolito">
-						<ButtonSidebar style={ColorWhiteStyle}>Fotolito</ButtonSidebar>
+						<ButtonSidebar>Fotolito</ButtonSidebar>
 					</a>
 					<a href="/Chapas">
-						<ButtonSidebar>Chapas</ButtonSidebar>
+						<ButtonSidebar style={ColorWhiteStyle}>Chapas</ButtonSidebar>
 					</a>
 					<a href="/Tintas">
 						<ButtonSidebar>Tintas</ButtonSidebar>
@@ -94,44 +94,47 @@ export default function Chapas() {
 					</a>
 				</Sidebar>
 				<Viwer>
-					<h3>Fotolito</h3>
+					<h3>Chapas</h3>
 					<Grid>
 						<InfoProducts>
-							<ImgFotolito />
-							<form>
+							<ImgChapa />
+							<form action="/menu">
 								<div style={divStyle}>
 									<Label style={LabelStyle} color="white">
-										Nome
+										Código
 									</Label>
-									<Input required type="text" placeholder="Nome do fotolito" />
+									<Input required type="number" placeholder="Insira o código da chapa" />
 								</div>
 								<br />
 								<div>
 									<Label style={LabelStyle} color="white">
-										Tipo
+										Tamanho
 									</Label>
-									<Select name="litragem">
+									<Select name="tamanho">
 										<option required selected disabled>
 											Selecione
 										</option>
-										<option value="20 LTS">20 Litros</option>
-										<option value="18 LTS">18 Litros</option>
-										<option value="5 LTS">5 Litros</option>
+										<option value="1x1">1x1 m</option>
+										<option value="2x2">2x2 m</option>
+										<option value="3x3">3x3 m</option>
 									</Select>
 								</div>
 								<div style={divStyle}>
 									<Label style={LabelStyle} color="white">
 										Quantidade
 									</Label>
-									<Input required style={InputStyle} type="number" placeholder="Quantidade de filmes" />
+									<Input required style={InputStyle} type="number" placeholder="Quantidade de chapas" />
+								</div>
+								<div style={divStyle}>
+									<Salvar value="SALVAR" placeholder="SALVAR" />
 								</div>
 							</form>
 						</InfoProducts>
 						<InfoProducts>
 							<form>
 								<SelectDados>
-									<Dados>Nome - tipo - quantidade</Dados>
-									<Dados>Nome - tipo - quantidade</Dados>
+									<Dados>Cod - Tamanho - Quantidade</Dados>
+									<Dados>Cod - Tamanho - Quantidade</Dados>
 								</SelectDados>
 							</form>
 						</InfoProducts>
