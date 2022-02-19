@@ -1,11 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
+import {
+	Salvar,
+	Dados,
+	Select,
+	Svg,
+	Header,
+	Title,
+	User,
+	Label,
+	Input,
+	RedesSociais,
+	Rede,
+	Sidebar,
+	Viwer,
+	Painel,
+	ButtonSidebar,
+	Logout,
+	Grid,
+	InfoProducts,
+	SelectDados,
+	Icons,
+	Dado,
+} from "../style-components";
 
 import { ReactComponent as ImgTinta } from "../../images/Tinta.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
 import { ReactComponent as IconFacebook } from "../../images/IconFacebook.svg";
 import { ReactComponent as IconInstagram } from "../../images/IconInstagram.svg";
 import { ReactComponent as IconLinkedin } from "../../images/IconLinkedin.svg";
+import { ReactComponent as IconEdit } from "../../images/IconEdit.svg";
+import { ReactComponent as IconDelete } from "../../images/IconDelete.svg";
 
 const divStyle = {
 	position: "relative",
@@ -27,6 +51,9 @@ const ColorWhiteStyle = {
 const ButtonMenuStyle = {
 	textAlign: "center",
 	fontSize: "18px",
+};
+const IconStyle = {
+	paddingLeft: "10px",
 };
 
 export default function Tintas() {
@@ -132,8 +159,22 @@ export default function Tintas() {
 						<InfoProducts>
 							<form>
 								<SelectDados>
-									<Dados>Nome - tipo - quantidade</Dados>
-									<Dados>Nome - tipo - quantidade</Dados>
+									<Dados>
+										Nome - tipo - quantidade
+										<Icons>
+											<IconEdit style={IconStyle} />
+											<IconDelete style={IconStyle} />
+										</Icons>
+									</Dados>
+									<Dados>
+										Nome - tipo - quantidade
+										<Icons>
+											<a href="">
+												<IconEdit style={IconStyle} />
+											</a>
+											<IconDelete style={IconStyle} />
+										</Icons>
+									</Dados>
 								</SelectDados>
 							</form>
 						</InfoProducts>

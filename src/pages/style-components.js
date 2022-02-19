@@ -278,10 +278,18 @@ export const SelectDados = styled.div`
 	border-radius: 20px;
 	text-align: start;
 `;
+
 export const Dados = styled.div`
 	position: relative;
-	display: grid;
+	display: flex;
 	width: 500px;
 	padding: 4px;
 	margin: 0px 60px 0px 10px;
+`;
+
+export const Icons = styled.div`
+	position: relative;
+	display: flex;
+	padding-top: 10px;
+	padding-left: 230px;
 `;
