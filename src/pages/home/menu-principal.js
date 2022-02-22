@@ -12,16 +12,16 @@ const LogoutStyle = {
 };
 
 export default function MenuPrincipal() {
-	const [nome, setNome] = useState([]);
+	const [products, setProducts] = useState([]);
 
-	// useEffect(() => {
-	//     api.get("login").then(({data}) => {
-	//         setNome(data);
-	//     })
-	//     console.log(nome);
+	useEffect(() => {
+		api.get("products").then(({ data }) => {
+			setProducts(data.products);
+		});
+		console.log(products);
 
-	//     //eslint-disable-next-link react-hooks/exhaustive-deps
-	// }, []);
+		// eslint-disable-next-link react-hooks/exhaustive-deps
+	}, []);
 	return (
 		<div>
 			<Svg>

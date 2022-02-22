@@ -1,27 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-	Salvar,
-	Dados,
-	Select,
-	Svg,
-	Header,
-	Title,
-	User,
-	Label,
-	Input,
-	RedesSociais,
-	Rede,
-	Sidebar,
-	Viwer,
-	Painel,
-	ButtonSidebar,
-	Logout,
-	Grid,
-	InfoProducts,
-	SelectDados,
-	Icons,
-	Dado,
-} from "../style-components";
+import { read_cookie } from "sfcookies";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados, Icons, Dado} from "../style-components";
 
 import { ReactComponent as ImgTinta } from "../../images/Tinta.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
@@ -57,16 +38,39 @@ const IconStyle = {
 };
 
 export default function Tintas() {
-	//const [nome, setNome] = useState([]);
+	const ProductTypeId = "3";
+	const size = null;
+	const liters = null;
+	const usability = null;
+	const [name, setNome] = useState("");
+	const [type, setTipo] = useState("");
+	const [amount, setQuantidade] = useState("");
 
-	// useEffect(() => {
-	//     api.get("login").then(({data}) => {
-	//         setNome(data);
-	//     })
-	//     console.log(nome);
-
-	//     //eslint-disable-next-link react-hooks/exhaustive-deps
-	// }, []);
+	const navigate = useNavigate();
+	
+	function AddTintas() {
+		const authorization = read_cookie("authorization");
+		axios.post("http://localhost:3001/products/", {
+			name: name,
+			amount: amount,
+			typeId: ProductTypeId,
+			liters: liters,
+			size: size,
+			type: type,
+			usability: usability,
+		}, {
+			headers: {
+				'Authorization': `Bearer ${authorization}` 
+			},
+		})
+		.then(() => {
+			alert("Item adicionado com sucesso!");
+			navigate("/menu");
+		})
+		.catch(() => {
+			alert("Não foi possivel realizar cadastro!");
+		});
+	}
 	return (
 		<div>
 			<Svg>
@@ -125,19 +129,18 @@ export default function Tintas() {
 					<Grid>
 						<InfoProducts>
 							<ImgTinta />
-							<form action="/tintas">
 								<div style={divStyle}>
 									<Label style={LabelStyle} color="white">
 										Nome
 									</Label>
-									<Input required type="text" placeholder="Nome do fotolito" />
+									<Input  onChange={(e) => setNome(e.target.value)} required type="text" placeholder="Nome do fotolito" />
 								</div>
 								<br />
 								<div>
 									<Label style={LabelStyle} color="white">
 										Tipo
 									</Label>
-									<Select name="litragem">
+									<Select  onChange={(e) => setTipo(e.target.value)} name="litragem">
 										<option required selected disabled>
 											Selecione
 										</option>
@@ -149,12 +152,11 @@ export default function Tintas() {
 									<Label style={LabelStyle} color="white">
 										Quantidade
 									</Label>
-									<Input required style={InputStyle} type="number" placeholder="Quantidade de filmes" />
+									<Input onChange={(e) => setQuantidade(e.target.value)} required style={InputStyle} type="number" placeholder="Quantidade de filmes" />
 								</div>
 								<div style={divStyle}>
-									<Salvar value="SALVAR" placeholder="SALVAR" />
+									<Salvar onClick={AddTintas} value="SALVAR" placeholder="SALVAR" />
 								</div>
-							</form>
 						</InfoProducts>
 						<InfoProducts>
 							<form>

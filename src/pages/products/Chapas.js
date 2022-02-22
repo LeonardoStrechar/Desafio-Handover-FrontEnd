@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { read_cookie } from "sfcookies";
+import axios from "axios";
 import { Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados, Salvar } from "../style-components";
 
 import { ReactComponent as ImgChapa } from "../../images/Chapas.svg";
@@ -30,16 +33,39 @@ const ButtonMenuStyle = {
 };
 
 export default function Chapas() {
-	//const [nome, setNome] = useState([]);
+	const ProductTypeId = "2";
+	const [size, setTamanho] = useState("");
+	const type = null;
+	const usability = null;
+	const [name, setNome] = useState("");
+	const liters = null;
+	const [amount, setQuantidade] = useState("");
 
-	// useEffect(() => {
-	//     api.get("login").then(({data}) => {
-	//         setNome(data);
-	//     })
-	//     console.log(nome);
-
-	//     //eslint-disable-next-link react-hooks/exhaustive-deps
-	// }, []);
+	const navigate = useNavigate();
+	
+	function AddChapas() {
+		const authorization = read_cookie("authorization");
+		axios.post("http://localhost:3001/products/", {
+			name: name,
+			amount: amount,
+			typeId: ProductTypeId,
+			liters: liters,
+			size: size,
+			type: type,
+			usability: usability,
+		}, {
+			headers: {
+				'Authorization': `Bearer ${authorization}` 
+			},
+		})
+		.then(() => {
+			alert("Item adicionado com sucesso!");
+			
+		})
+		.catch(() => {
+			alert("Não foi possivel realizar cadastro!");
+		});
+	}
 	return (
 		<div>
 			<Svg>
@@ -98,19 +124,19 @@ export default function Chapas() {
 					<Grid>
 						<InfoProducts>
 							<ImgChapa />
-							<form action="/menu">
+							
 								<div style={divStyle}>
 									<Label style={LabelStyle} color="white">
 										Código
 									</Label>
-									<Input required type="number" placeholder="Insira o código da chapa" />
+									<Input onChange={(e) => setNome(e.target.value)} required type="number" placeholder="Insira o código da chapa" />
 								</div>
 								<br />
 								<div>
 									<Label style={LabelStyle} color="white">
 										Tamanho
 									</Label>
-									<Select name="tamanho">
+									<Select onChange={(e) => setTamanho(e.target.value)} required name="tamanho">
 										<option required selected disabled>
 											Selecione
 										</option>
@@ -123,12 +149,12 @@ export default function Chapas() {
 									<Label style={LabelStyle} color="white">
 										Quantidade
 									</Label>
-									<Input required style={InputStyle} type="number" placeholder="Quantidade de chapas" />
+									<Input onChange={(e) => setQuantidade(e.target.value)} required style={InputStyle} type="number" placeholder="Quantidade de chapas" />
 								</div>
 								<div style={divStyle}>
-									<Salvar value="SALVAR" placeholder="SALVAR" />
+									<Salvar onClick={AddChapas} value="SALVAR" placeholder="SALVAR" />
 								</div>
-							</form>
+							
 						</InfoProducts>
 						<InfoProducts>
 							<form>
