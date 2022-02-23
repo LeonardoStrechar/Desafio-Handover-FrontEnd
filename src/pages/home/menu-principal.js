@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { read_cookie } from "sfcookies";
+import axios from "axios";
 import { Svg, Header, Title, User, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoTable, InfoRespose, InfoTitle, InfoRequest, Infos } from "../style-components";
-import api from "../../services/api";
 
 import { ReactComponent as Background } from "../../images/Background.svg";
 import { ReactComponent as IconFacebook } from "../../images/IconFacebook.svg";
@@ -12,16 +13,31 @@ const LogoutStyle = {
 };
 
 export default function MenuPrincipal() {
+	const ProductTypeId = "3";
 	const [products, setProducts] = useState([]);
-
+	const authorization = read_cookie("authorization");
+	
 	useEffect(() => {
-		api.get("products").then(({ data }) => {
-			setProducts(data.products);
-		});
-		console.log(products);
+			axios.get("http://localhost:3001/products/", {
+				
+				type: ProductTypeId,
+			}, {
+				headers: {
+					'Authorization': `Bearer ${authorization}` 
+				}
+			})
+			.then((response) => {
+				console.log("deu certo aa");
+				setProducts(response.data.products);
+				
+			}).catch(() => {
+				console.log("Não foi possivel realizar cadastro!");
+			});
 
-		// eslint-disable-next-link react-hooks/exhaustive-deps
-	}, []);
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+	console.log(products);
 	return (
 		<div>
 			<Svg>

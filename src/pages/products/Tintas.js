@@ -47,6 +47,31 @@ export default function Tintas() {
 	const [amount, setQuantidade] = useState("");
 
 	const navigate = useNavigate();
+
+	const [Tintas, setTintas] = useState([]);
+	const authorization = read_cookie("authorization");
+	
+	useEffect(() => {
+			axios.get("http://localhost:3001/products/", {
+				
+				type: ProductTypeId,
+			}, {
+				headers: {
+					'Authorization': `Bearer ${authorization}` 
+				}
+			})
+			.then((response) => {
+				console.log("deu certo aa");
+				setTintas(response.data.products);
+				
+			}).catch(() => {
+				console.log("Não foi possivel realizar cadastro!");
+			});
+
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+	console.log(Tintas);
 	
 	function AddTintas() {
 		const authorization = read_cookie("authorization");

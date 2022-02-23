@@ -42,6 +42,31 @@ export default function Quimicos() {
 	const [usability, setUsability] = useState("");
 
 	const navigate = useNavigate();
+
+	const [Quimico, setQuimico] = useState([]);
+	const authorization = read_cookie("authorization");
+	
+	useEffect(() => {
+			axios.get("http://localhost:3001/products/", {
+				
+				type: ProductTypeId,
+			}, {
+				headers: {
+					'Authorization': `Bearer ${authorization}` 
+				}
+			})
+			.then((response) => {
+				console.log("deu certo aa");
+				setQuimico(response.data.products);
+				
+			}).catch(() => {
+				console.log("Não foi possivel realizar cadastro!");
+			});
+
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+	console.log(Quimico);
 	
 	function AddQuimicos() {
 		const authorization = read_cookie("authorization");

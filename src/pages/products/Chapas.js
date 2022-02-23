@@ -42,6 +42,31 @@ export default function Chapas() {
 	const [amount, setQuantidade] = useState("");
 
 	const navigate = useNavigate();
+
+	const [Chapas, setChapas] = useState([]);
+	const authorization = read_cookie("authorization");
+	
+	useEffect(() => {
+			axios.get("http://localhost:3001/products/", {
+				
+				type: ProductTypeId,
+			}, {
+				headers: {
+					'Authorization': `Bearer ${authorization}` 
+				}
+			})
+			.then((response) => {
+				console.log("deu certo aa");
+				setChapas(response.data.products);
+				
+			}).catch(() => {
+				console.log("Não foi possivel realizar cadastro!");
+			});
+
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+	console.log(Chapas);
 	
 	function AddChapas() {
 		const authorization = read_cookie("authorization");

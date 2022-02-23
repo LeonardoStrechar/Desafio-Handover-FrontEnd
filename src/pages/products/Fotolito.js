@@ -44,6 +44,31 @@ export default function Fotolito() {
 
 	const navigate = useNavigate();
 	
+	const [fotolito, setFotolito] = useState([]);
+	const authorization = read_cookie("authorization");
+	
+	useEffect(() => {
+			axios.get("http://localhost:3001/products/", {
+				
+				type: ProductTypeId,
+			}, {
+				headers: {
+					'Authorization': `Bearer ${authorization}` 
+				}
+			})
+			.then((response) => {
+				console.log("deu certo aa");
+				setFotolito(response.data);
+				
+			}).catch(() => {
+				console.log("Não foi possivel realizar cadastro!");
+			});
+
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+	console.log(fotolito);
+
 	function AddFotolito() {
 		const authorization = read_cookie("authorization");
 		axios.post("http://localhost:3001/products/", {
@@ -161,7 +186,15 @@ export default function Fotolito() {
 							<form>
 								<SelectDados>
 									<Dados>Nome - Tipo - Quantidade</Dados>
-									<Dados>Nome - Tipo - Quantidade</Dados>
+									<Dados>
+										{/* {fotolito?.map((products) => (
+										
+												<h1>key={products._id}</h1>
+												<h1>id={id}</h1>
+												<h1>nome={name}</h1>
+												<h1>liters={liters}</h1>
+										))} */}
+									</Dados>
 								</SelectDados>
 							</form>
 						</InfoProducts>
