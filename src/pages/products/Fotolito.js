@@ -66,8 +66,9 @@ export default function Fotolito() {
 
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-
-	console.log(fotolito);
+	//console.log(fotolito.products)
+	const produtos = fotolito.products
+	console.log(produtos)
 
 	function AddFotolito() {
 		const authorization = read_cookie("authorization");
@@ -97,9 +98,6 @@ export default function Fotolito() {
 			<Svg>
 				<Background />
 			</Svg>
-			{/* {nome?.map((nome) => (
-                
-            ))} */}
 			<div>
 				<Header>
 					<User fontSize={16}>Bem vindo, Leonardo strechar</User>
@@ -186,14 +184,11 @@ export default function Fotolito() {
 							<form>
 								<SelectDados>
 									<Dados>Nome - Tipo - Quantidade</Dados>
+
 									<Dados>
-										{/* {fotolito?.map((products) => (
-										
-												<h1>key={products._id}</h1>
-												<h1>id={id}</h1>
-												<h1>nome={name}</h1>
-												<h1>liters={liters}</h1>
-										))} */}
+										{produtos.map((info) => (
+											<h1>{info.name}</h1>
+										))}
 									</Dados>
 								</SelectDados>
 							</form>
