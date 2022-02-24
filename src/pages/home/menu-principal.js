@@ -18,12 +18,12 @@ export default function MenuPrincipal() {
 	const authorization = read_cookie("authorization");
 	
 	useEffect(() => {
-			axios.get("http://localhost:3001/products/", {
+			axios.get("http://localhost:3001/products", {
 				
 				type: ProductTypeId,
 			}, {
 				headers: {
-					'Authorization': `Bearer ${authorization}` 
+					'authorization': `Bearer ${authorization}` 
 				}
 			})
 			.then((response) => {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { read_cookie } from "sfcookies";
 import axios from "axios";
+import Card from "../components/card";
 import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
 
 import { ReactComponent as ImgFotolito } from "../../images/Fotolito.svg";
@@ -49,12 +50,11 @@ export default function Fotolito() {
 	
 	useEffect(() => {
 			axios.get("http://localhost:3001/products/", {
-				
-				type: ProductTypeId,
-			}, {
 				headers: {
-					'Authorization': `Bearer ${authorization}` 
+					'authorization': `Bearer ${authorization}` 
 				}
+			}, {
+				type: ProductTypeId,
 			})
 			.then((response) => {
 				console.log("deu certo aa");
@@ -68,11 +68,15 @@ export default function Fotolito() {
 	}, [])
 	//console.log(fotolito.products)
 	const produtos = fotolito.products
-	console.log(produtos)
+	//console.log(produtos)
 
 	function AddFotolito() {
 		const authorization = read_cookie("authorization");
 		axios.post("http://localhost:3001/products/", {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
+		}, {
 			name: name,
 			amount: amount,
 			typeId: ProductTypeId,
@@ -80,10 +84,6 @@ export default function Fotolito() {
 			size: size,
 			type: type,
 			usability: usability,
-		}, {
-			headers: {
-				'Authorization': `Bearer ${authorization}` 
-			},
 		})
 		.then(() => {
 			alert("Item adicionado com sucesso!");
@@ -184,10 +184,11 @@ export default function Fotolito() {
 							<form>
 								<SelectDados>
 									<Dados>Nome - Tipo - Quantidade</Dados>
-
+									<Card></Card>
 									<Dados>
-										{produtos.map((info) => (
-											<h1>{info.name}</h1>
+										{produtos?.map((info) => (
+											<h1>{info.id}</h1>
+											
 										))}
 									</Dados>
 								</SelectDados>
