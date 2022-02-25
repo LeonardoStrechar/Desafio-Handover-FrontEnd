@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { authentication } from "./auth";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
+//import { authentication } from "./auth";
 import MenuPrincipal from "./pages/home/menu-principal";
 import Login from "./pages/login";
 import Register from "./pages/register";
@@ -9,9 +9,9 @@ import Chapas from "./pages/products/Chapas";
 import Tintas from "./pages/products/Tintas";
 import Quimicos from "./pages/products/Quimicos";
 
-const PrivateRoute = ({ element: Element, ...rest }) => (
-	<Route {...rest} element={(props) => (authentication() ? <Element {...props} /> : <Navigate to={{ pathname: "/", state: { from: props.location } }} />)} />
-);
+// const PrivateRoute = ({ element: Element, ...rest }) => (
+// 	<Route {...rest} element={(props) => (authentication() ? <Element {...props} /> : <Navigate to={{ pathname: "/", state: { from: props.location } }} />)} />
+// );
 
 const Rotas = () => (
 	<BrowserRouter>

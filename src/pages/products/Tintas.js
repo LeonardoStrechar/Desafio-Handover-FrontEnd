@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { read_cookie } from "sfcookies";
+import { read_cookie, delete_cookie } from "sfcookies";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados, Icons, Dado} from "../style-components";
@@ -96,6 +96,12 @@ export default function Tintas() {
 			alert("Não foi possivel realizar cadastro!");
 		});
 	}
+
+	function FunctionLogout(){
+		delete_cookie("authorization");
+		navigate("/menu");
+	}
+	
 	return (
 		<div>
 			<Svg>
@@ -145,9 +151,7 @@ export default function Tintas() {
 					<a href="/Quimicos">
 						<ButtonSidebar>Quimicos</ButtonSidebar>
 					</a>
-					<a href="/">
-						<Logout value="LOGOUT" placeholder="LOGOUT" />
-					</a>
+					<Logout onClick={FunctionLogout} >LOGOUT</Logout>
 				</Sidebar>
 				<Viwer>
 					<h3>Tintas</h3>
@@ -166,7 +170,7 @@ export default function Tintas() {
 										Tipo
 									</Label>
 									<Select  onChange={(e) => setTipo(e.target.value)} name="litragem">
-										<option required selected disabled>
+										<option required defaultValue disabled>
 											Selecione
 										</option>
 										<option value="Verão">verão</option>

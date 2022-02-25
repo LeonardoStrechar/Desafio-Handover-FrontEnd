@@ -4,15 +4,17 @@ const divStyle = {
 };
 const h3Styled = {
 	position: "relative",
-	padding: "3px",
+	paddingLeft: "10px",
 };
 
-export default function Card(){
+export default function Card(props){
     return (
         <div style={divStyle}>
-            <h3 style={h3Styled}>teste</h3>
-            <h3 style={h3Styled}>teste2</h3>
-            <h3 style={h3Styled}>teste2</h3>
+            <h3 style={h3Styled}>{props.name}</h3>
+            <h3 style={h3Styled}> - </h3>
+            <h3 style={h3Styled}>{props.tipo}</h3>
+            <h3 style={h3Styled}> - </h3>
+            <h3 style={h3Styled}>{props.quantidade}</h3>
         </div>
     );
 }

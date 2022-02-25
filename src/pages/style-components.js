@@ -162,9 +162,7 @@ export const ButtonSidebar = styled.button`
 		font-weight: bolder;
 	}
 `;
-export const Logout = styled.input.attrs((props) => ({
-	type: "submit",
-}))`
+export const Logout = styled.button`
 	position: relative;
 	width: 180px;
 	top: 240px;
@@ -276,7 +274,6 @@ export const SelectDados = styled.div`
 	height: 100%;
 	border: black;
 	border-radius: 20px;
-	text-align: start;
 `;
 
 export const Dados = styled.div`

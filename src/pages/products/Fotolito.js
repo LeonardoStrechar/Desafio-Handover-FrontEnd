@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { read_cookie } from "sfcookies";
+import { read_cookie, delete_cookie } from "sfcookies";
 import axios from "axios";
 import Card from "../components/card";
 import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
@@ -49,12 +49,10 @@ export default function Fotolito() {
 	const authorization = read_cookie("authorization");
 	
 	useEffect(() => {
-			axios.get("http://localhost:3001/products/", {
+			axios.get('http://localhost:3001/products/?type=fotolito', {
 				headers: {
 					'authorization': `Bearer ${authorization}` 
 				}
-			}, {
-				type: ProductTypeId,
 			})
 			.then((response) => {
 				console.log("deu certo aa");
@@ -66,17 +64,12 @@ export default function Fotolito() {
 
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-	//console.log(fotolito.products)
+
 	const produtos = fotolito.products
-	//console.log(produtos)
 
 	function AddFotolito() {
 		const authorization = read_cookie("authorization");
 		axios.post("http://localhost:3001/products/", {
-			headers: {
-				'authorization': `Bearer ${authorization}` 
-			}
-		}, {
 			name: name,
 			amount: amount,
 			typeId: ProductTypeId,
@@ -84,6 +77,10 @@ export default function Fotolito() {
 			size: size,
 			type: type,
 			usability: usability,
+		}, {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
 		})
 		.then(() => {
 			alert("Item adicionado com sucesso!");
@@ -93,6 +90,12 @@ export default function Fotolito() {
 			alert("Não foi possivel realizar cadastro!");
 		});
 	}
+
+	function FunctionLogout(){
+		delete_cookie("authorization");
+		navigate("/menu");
+	}
+	
 	return (
 		<div>
 			<Svg>
@@ -139,9 +142,7 @@ export default function Fotolito() {
 					<a href="/quimicos">
 						<ButtonSidebar>Quimicos</ButtonSidebar>
 					</a>
-					<a href="/">
-						<Logout value="LOGOUT" placeholder="LOGOUT" />
-					</a>
+					<Logout onClick={FunctionLogout} >LOGOUT</Logout>
 				</Sidebar>
 				<Viwer>
 					<h3>Fotolito</h3>
@@ -161,7 +162,7 @@ export default function Fotolito() {
 									Litragem
 								</Label>
 								<Select onChange={(e) => setLitragem(e.target.value)} name="litragem">
-									<option required selected disabled>
+									<option required defaultValue disabled>
 										Selecione
 									</option>
 									<option value="20">20 Litros</option>
@@ -183,14 +184,10 @@ export default function Fotolito() {
 						<InfoProducts>
 							<form>
 								<SelectDados>
-									<Dados>Nome - Tipo - Quantidade</Dados>
-									<Card></Card>
-									<Dados>
+									<Dados>Nome  -  Litragem  -  Quantidade</Dados>
 										{produtos?.map((info) => (
-											<h1>{info.id}</h1>
-											
+											<Card name={info.name} tipo={info.liters} quantidade={info.amount} />
 										))}
-									</Dados>
 								</SelectDados>
 							</form>
 						</InfoProducts>

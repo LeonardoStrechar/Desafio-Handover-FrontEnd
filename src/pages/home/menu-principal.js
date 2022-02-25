@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { read_cookie } from "sfcookies";
+import { read_cookie, delete_cookie } from "sfcookies";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Svg, Header, Title, User, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoTable, InfoRespose, InfoTitle, InfoRequest, Infos } from "../style-components";
 
@@ -16,6 +17,8 @@ export default function MenuPrincipal() {
 	const ProductTypeId = "3";
 	const [products, setProducts] = useState([]);
 	const authorization = read_cookie("authorization");
+
+	const navigate = useNavigate();
 	
 	useEffect(() => {
 			axios.get("http://localhost:3001/products", {
@@ -36,6 +39,12 @@ export default function MenuPrincipal() {
 
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
+
+	function FunctionLogout(){
+		delete_cookie("authorization");
+		navigate("/");
+	}
+
 
 	console.log(products);
 	return (
@@ -82,9 +91,7 @@ export default function MenuPrincipal() {
 					<a href="/quimicos">
 						<ButtonSidebar>Quimicos</ButtonSidebar>
 					</a>
-					<a href="/">
-						<Logout style={LogoutStyle} value="LOGOUT" placeholder="LOGOUT" />
-					</a>
+					<Logout onClick={FunctionLogout} >LOGOUT</Logout>
 				</Sidebar>
 				<Viwer>
 					<h3>Estoque</h3>

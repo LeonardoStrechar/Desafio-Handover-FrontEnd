@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { read_cookie } from "sfcookies";
+import { read_cookie, delete_cookie } from "sfcookies";
 import axios from "axios";
 import { Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados, Salvar } from "../style-components";
 
@@ -91,6 +91,12 @@ export default function Chapas() {
 			alert("Não foi possivel realizar cadastro!");
 		});
 	}
+
+	function FunctionLogout(){
+		delete_cookie("authorization");
+		navigate("/menu");
+	}
+	
 	return (
 		<div>
 			<Svg>
@@ -140,9 +146,7 @@ export default function Chapas() {
 					<a href="/Quimicos">
 						<ButtonSidebar>Quimicos</ButtonSidebar>
 					</a>
-					<a href="/">
-						<Logout value="LOGOUT" placeholder="LOGOUT" />
-					</a>
+					<Logout onClick={FunctionLogout} >LOGOUT</Logout>
 				</Sidebar>
 				<Viwer>
 					<h3>Chapas</h3>
@@ -162,7 +166,7 @@ export default function Chapas() {
 										Tamanho
 									</Label>
 									<Select onChange={(e) => setTamanho(e.target.value)} required name="tamanho">
-										<option required selected disabled>
+										<option required defaultValue disabled>
 											Selecione
 										</option>
 										<option value="1x1">1x1 m</option>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { read_cookie } from "sfcookies";
+import { read_cookie, delete_cookie } from "sfcookies";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Card from "../components/card";
 import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
 
 import { ReactComponent as ImgQuimicos } from "../../images/Quimicos.svg";
@@ -43,16 +44,13 @@ export default function Quimicos() {
 
 	const navigate = useNavigate();
 
-	const [Quimico, setQuimico] = useState([]);
+	const [quimico, setQuimico] = useState([]);
 	const authorization = read_cookie("authorization");
 	
 	useEffect(() => {
 			axios.get("http://localhost:3001/products/", {
-				
-				type: ProductTypeId,
-			}, {
 				headers: {
-					'Authorization': `Bearer ${authorization}` 
+					'authorization': `Bearer ${authorization}` 
 				}
 			})
 			.then((response) => {
@@ -66,7 +64,8 @@ export default function Quimicos() {
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	console.log(Quimico);
+	const produtos = quimico.products
+	console.log(produtos);
 	
 	function AddQuimicos() {
 		const authorization = read_cookie("authorization");
@@ -80,7 +79,7 @@ export default function Quimicos() {
 			usability: usability,
 		}, {
 			headers: {
-				'Authorization': `Bearer ${authorization}` 
+				'authorization': `Bearer ${authorization}` 
 			},
 		})
 		.then(() => {
@@ -91,6 +90,12 @@ export default function Quimicos() {
 			alert("Não foi possivel realizar cadastro!");
 		});
 	}
+
+	function FunctionLogout(){
+		delete_cookie("authorization");
+		navigate("/menu");
+	}
+	
 	return (
 		<div>
 			<Svg>
@@ -140,9 +145,7 @@ export default function Quimicos() {
 					<a href="/Quimicos">
 						<ButtonSidebar style={ColorWhiteStyle}>Quimicos</ButtonSidebar>
 					</a>
-					<a href="/">
-						<Logout value="LOGOUT" placeholder="LOGOUT" />
-					</a>
+					<Logout onClick={FunctionLogout} >LOGOUT</Logout>
 				</Sidebar>
 				<Viwer>
 					<h3>Quimicos</h3>
@@ -162,7 +165,7 @@ export default function Quimicos() {
 										Usabilidade
 									</Label>
 									<Select onChange={(e) => setUsability(e.target.value)} name="usabilidade">
-										<option required selected disabled>
+										<option required defaultValue disabled>
 											Selecione
 										</option>
 										<option value="Solução de forno">Solução de forno</option>
@@ -186,7 +189,9 @@ export default function Quimicos() {
 							<form>
 								<SelectDados>
 									<Dados>Nome - tipo - quantidade</Dados>
-									<Dados>Nome - tipo - quantidade</Dados>
+									{produtos?.map((info) => (
+											<Card name={info.name} tipo={info.usability} quantidade={info.amount} />
+										))}
 								</SelectDados>
 							</form>
 						</InfoProducts>
