@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { read_cookie, delete_cookie } from "sfcookies";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Card from "../components/card";
 import { Svg, Header, Title, User, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoTable, InfoRespose, InfoTitle, InfoRequest, Infos } from "../style-components";
 
 import { ReactComponent as Background } from "../../images/Background.svg";
@@ -14,47 +15,100 @@ const LogoutStyle = {
 };
 
 export default function MenuPrincipal() {
-	const ProductTypeId = "3";
-	const [products, setProducts] = useState([]);
-	const authorization = read_cookie("authorization");
-
 	const navigate = useNavigate();
-	
-	useEffect(() => {
-			axios.get("http://localhost:3001/products", {
-				
-				type: ProductTypeId,
-			}, {
-				headers: {
-					'authorization': `Bearer ${authorization}` 
-				}
-			})
-			.then((response) => {
-				console.log("deu certo aa");
-				setProducts(response.data.products);
-				
-			}).catch(() => {
-				console.log("Não foi possivel realizar cadastro!");
-			});
+	const authorization = read_cookie("authorization");
+	const [fotolitos, setFotolito] = useState([]);
+	const [chapas, setChapas] = useState([]);
+	const [tintas, setTinta] = useState([]);
+	const [quimicos, setQuimico] = useState([]);
 
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
 
+// função para deslogar	
 	function FunctionLogout(){
 		delete_cookie("authorization");
 		navigate("/");
 	}
 
+// função get fotolito
+	useEffect(() => {
+		axios.get('http://localhost:3001/products/?type=fotolito', {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
+		})
+		.then((response) => {
+			console.log("deu certo fotolito");
+			setFotolito(response.data);
+		}).catch(() => {
+			console.log("no fotolito");
+		});
 
-	console.log(products);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+// função get chapa
+	useEffect(() => {
+		axios.get('http://localhost:3001/products/?type=Chapa', {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
+		})
+		.then((response) => {
+			console.log("deu certo chapa");
+			setChapas(response.data);
+		}).catch(() => {
+			console.log("no chapa");
+		});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+// função get tinta
+	useEffect(() => {
+		axios.get('http://localhost:3001/products/?type=Tinta', {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
+		})
+		.then((response) => {
+			console.log("deu certo tinta");
+			setTinta(response.data);
+		}).catch(() => {
+			console.log("no tinta");
+		});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+// função get quimicos
+	useEffect(() => {
+		axios.get('http://localhost:3001/products/?type=Quimicos', {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
+		})
+		.then((response) => {
+			console.log("deu certo quimico");
+			setQuimico(response.data);
+		}).catch(() => {
+			console.log("no quimico");
+		});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+
+	const fotolito = fotolitos.products
+	const chapa = chapas.products
+	const tinta = tintas.products
+	const quimico = quimicos.products
+
+
 	return (
 		<div>
 			<Svg>
 				<Background />
 			</Svg>
-			{/* {nome?.map((nome) => (
-                    
-                ))} */}
 			<div>
 				<Header>
 					<User fontSize={16}>Bem vindo, Leonardo strechar</User>
@@ -101,6 +155,11 @@ export default function MenuPrincipal() {
 							<br />
 							<InfoRequest>Estoque</InfoRequest>
 							<InfoRespose>120</InfoRespose>
+
+							{fotolito?.map((info) => (
+								<Card name={info.name} tipo={info.liters} quantidade={info.amount} />
+							))}
+
 						</InfoTable>
 						<InfoTable background="white">
 							<InfoTitle>CHAPAS</InfoTitle>

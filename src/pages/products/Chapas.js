@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { read_cookie, delete_cookie } from "sfcookies";
 import axios from "axios";
+import Card from "../components/card";
 import { Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados, Salvar } from "../style-components";
 
 import { ReactComponent as ImgChapa } from "../../images/Chapas.svg";
@@ -43,30 +44,27 @@ export default function Chapas() {
 
 	const navigate = useNavigate();
 
-	const [Chapas, setChapas] = useState([]);
+	const [chapas, setChapas] = useState([]);
 	const authorization = read_cookie("authorization");
 	
 	useEffect(() => {
-			axios.get("http://localhost:3001/products/", {
-				
-				type: ProductTypeId,
-			}, {
-				headers: {
-					'Authorization': `Bearer ${authorization}` 
-				}
-			})
-			.then((response) => {
-				console.log("deu certo aa");
-				setChapas(response.data.products);
-				
-			}).catch(() => {
-				console.log("Não foi possivel realizar cadastro!");
-			});
+		axios.get('http://localhost:3001/products/?type=Chapa', {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
+		})
+		.then((response) => {
+			console.log("deu certo aa");
+			setChapas(response.data);
+			
+		}).catch(() => {
+			console.log("Não foi possivel realizar cadastro!");
+		});
 
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
-
-	console.log(Chapas);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
+	const chapa = chapas.products
+	console.log(chapa);
 	
 	function AddChapas() {
 		const authorization = read_cookie("authorization");
@@ -101,10 +99,7 @@ export default function Chapas() {
 		<div>
 			<Svg>
 				<Background />
-			</Svg>
-			{/* {nome?.map((nome) => (
-                
-            ))} */}
+			</Svg>	
 			<div>
 				<Header>
 					<User fontSize={16}>Bem vindo, Leonardo strechar</User>
@@ -188,8 +183,10 @@ export default function Chapas() {
 						<InfoProducts>
 							<form>
 								<SelectDados>
-									<Dados>Cod - Tamanho - Quantidade</Dados>
-									<Dados>Cod - Tamanho - Quantidade</Dados>
+									<Dados>Código - Tamanho - Quantidade</Dados>
+									{chapa?.map((info) => (
+											<Card name={info.name} tipo={info.size} quantidade={info.amount} />
+										))}
 								</SelectDados>
 							</form>
 						</InfoProducts>

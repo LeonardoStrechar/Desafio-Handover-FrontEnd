@@ -48,24 +48,24 @@ export default function Quimicos() {
 	const authorization = read_cookie("authorization");
 	
 	useEffect(() => {
-			axios.get("http://localhost:3001/products/", {
-				headers: {
-					'authorization': `Bearer ${authorization}` 
-				}
-			})
-			.then((response) => {
-				console.log("deu certo aa");
-				setQuimico(response.data.products);
-				
-			}).catch(() => {
-				console.log("Não foi possivel realizar cadastro!");
-			});
+		axios.get('http://localhost:3001/products/?type=Quimicos', {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
+		})
+		.then((response) => {
+			console.log("deu certo aa");
+			setQuimico(response.data);
+			
+		}).catch(() => {
+			console.log("Não foi possivel realizar cadastro!");
+		});
 
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
 
-	const produtos = quimico.products
-	console.log(produtos);
+	const quimicos = quimico.products
+	//console.log(quimicos);
 	
 	function AddQuimicos() {
 		const authorization = read_cookie("authorization");
@@ -101,9 +101,6 @@ export default function Quimicos() {
 			<Svg>
 				<Background />
 			</Svg>
-			{/* {nome?.map((nome) => (
-                
-            ))} */}
 			<div>
 				<Header>
 					<User fontSize={16}>Bem vindo, Leonardo strechar</User>
@@ -189,7 +186,7 @@ export default function Quimicos() {
 							<form>
 								<SelectDados>
 									<Dados>Nome - tipo - quantidade</Dados>
-									{produtos?.map((info) => (
+									{quimicos?.map((info) => (
 											<Card name={info.name} tipo={info.usability} quantidade={info.amount} />
 										))}
 								</SelectDados>

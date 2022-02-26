@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { read_cookie, delete_cookie } from "sfcookies";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados, Icons, Dado} from "../style-components";
+import Card from "../components/card";
+import { Salvar, Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
 
 import { ReactComponent as ImgTinta } from "../../images/Tinta.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
 import { ReactComponent as IconFacebook } from "../../images/IconFacebook.svg";
 import { ReactComponent as IconInstagram } from "../../images/IconInstagram.svg";
 import { ReactComponent as IconLinkedin } from "../../images/IconLinkedin.svg";
-import { ReactComponent as IconEdit } from "../../images/IconEdit.svg";
-import { ReactComponent as IconDelete } from "../../images/IconDelete.svg";
 
 const divStyle = {
 	position: "relative",
@@ -33,9 +32,7 @@ const ButtonMenuStyle = {
 	textAlign: "center",
 	fontSize: "18px",
 };
-const IconStyle = {
-	paddingLeft: "10px",
-};
+
 
 export default function Tintas() {
 	const ProductTypeId = "3";
@@ -48,30 +45,27 @@ export default function Tintas() {
 
 	const navigate = useNavigate();
 
-	const [Tintas, setTintas] = useState([]);
+	const [tintas, setTinta] = useState([]);
 	const authorization = read_cookie("authorization");
 	
 	useEffect(() => {
-			axios.get("http://localhost:3001/products/", {
-				
-				type: ProductTypeId,
-			}, {
-				headers: {
-					'Authorization': `Bearer ${authorization}` 
-				}
-			})
-			.then((response) => {
-				console.log("deu certo aa");
-				setTintas(response.data.products);
-				
-			}).catch(() => {
-				console.log("Não foi possivel realizar cadastro!");
-			});
+		axios.get('http://localhost:3001/products/?type=Tinta', {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
+		})
+		.then((response) => {
+			console.log("deu certo aa");
+			setTinta(response.data);
+			
+		}).catch(() => {
+			console.log("Não foi possivel realizar cadastro!");
+		});
 
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
-
-	console.log(Tintas);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
+	const tinta = tintas.products
+	console.log(tintas);
 	
 	function AddTintas() {
 		const authorization = read_cookie("authorization");
@@ -107,9 +101,6 @@ export default function Tintas() {
 			<Svg>
 				<Background />
 			</Svg>
-			{/* {nome?.map((nome) => (
-                
-            ))} */}
 			<div>
 				<Header>
 					<User fontSize={16}>Bem vindo, Leonardo strechar</User>
@@ -190,22 +181,10 @@ export default function Tintas() {
 						<InfoProducts>
 							<form>
 								<SelectDados>
-									<Dados>
-										Nome - tipo - quantidade
-										<Icons>
-											<IconEdit style={IconStyle} />
-											<IconDelete style={IconStyle} />
-										</Icons>
-									</Dados>
-									<Dados>
-										Nome - tipo - quantidade
-										<Icons>
-											<a href="">
-												<IconEdit style={IconStyle} />
-											</a>
-											<IconDelete style={IconStyle} />
-										</Icons>
-									</Dados>
+								<Dados>Nome - Tipo - Quantidade</Dados>
+										{tinta?.map((info) => (
+											<Card name={info.name} tipo={info.type} quantidade={info.amount} />
+										))}
 								</SelectDados>
 							</form>
 						</InfoProducts>
