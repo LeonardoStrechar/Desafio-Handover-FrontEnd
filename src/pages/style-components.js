@@ -208,31 +208,30 @@ export const Grid = styled.div`
 
 export const InfoTable = styled.div`
 	position: relative;
-	display: flex;
 	background: white;
 	width: 100%;
-	height: 150px;
+	height: 200px;
 	margin: 10px 10px 0px 0px;
 	padding: 15px;
 	color: black;
 	border: solid;
 	border-radius: 20px;
+	overflow-y: scroll;
 `;
 
 export const InfoTitle = styled.h2`
-	position: absolute;
+	position: relative;
 	font-size: 16px;
-	top: -38px;
-	color: white;
+	top: -30px;
+	color: black;
 `;
 
 export const InfoRequest = styled.div`
 	position: relative;
+	top: -58px;
 	width: 100%;
-	margin: 0px 7px 0px 0px;
 	text-align: start;
 	font-weight: bolder;
-	font-size: 14px;
 `;
 export const InfoRespose = styled.div`
 	position: relative;
@@ -271,9 +270,10 @@ export const SelectDados = styled.div`
 	position: relative;
 	background: white;
 	width: 100%;
-	height: 100%;
+	height: 530px;
 	border: black;
 	border-radius: 20px;
+	overflow-y: ${(props) => `${props.overflow}`};
 `;
 
 export const Dados = styled.div`

@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { read_cookie, delete_cookie } from "sfcookies";
 import axios from "axios";
 import Card from "../components/card";
-import { Dados, Select, Svg, Header, Title, User, Label, Input, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados, Salvar } from "../style-components";
+import HeaderT from "../components/header";
+import { Dados, Select, Svg, Title, Label, Input, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados, Salvar } from "../style-components";
 
 import { ReactComponent as ImgChapa } from "../../images/Chapas.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
-import { ReactComponent as IconFacebook } from "../../images/IconFacebook.svg";
-import { ReactComponent as IconInstagram } from "../../images/IconInstagram.svg";
-import { ReactComponent as IconLinkedin } from "../../images/IconLinkedin.svg";
 
 const divStyle = {
 	position: "relative",
@@ -101,27 +99,7 @@ export default function Chapas() {
 				<Background />
 			</Svg>	
 			<div>
-				<Header>
-					<User fontSize={16}>Bem vindo, Leonardo strechar</User>
-					<Title fontSize={20}>HandOver </Title>
-					<RedesSociais>
-						<Rede>
-							<a href="https://www.facebook.com/leonardo.strechar.1" target="_blank">
-								<IconFacebook />
-							</a>
-						</Rede>
-						<Rede>
-							<a href="https://www.instagram.com/leonardo_strechar/" target="_blank">
-								<IconInstagram />
-							</a>
-						</Rede>
-						<Rede>
-							<a href="https://www.linkedin.com/in/leonardo-strechar-a9875a1ab/" target="_blank">
-								<IconLinkedin />
-							</a>
-						</Rede>
-					</RedesSociais>
-				</Header>
+				<HeaderT/>
 			</div>
 			<Painel>
 				<Sidebar>
@@ -180,16 +158,14 @@ export default function Chapas() {
 								</div>
 							
 						</InfoProducts>
-						<InfoProducts>
-							<form>
-								<SelectDados>
-									<Dados>Código - Tamanho - Quantidade</Dados>
-									{chapa?.map((info) => (
-											<Card name={info.name} tipo={info.size} quantidade={info.amount} />
-										))}
-								</SelectDados>
-							</form>
-						</InfoProducts>
+							<InfoProducts>
+									<SelectDados overflow="scroll">
+										<Dados>Código - Tamanho - Quantidade</Dados>
+										{chapa?.map((info) => (
+												<Card name={info.name} tipo={info.size} quantidade={info.amount} />
+											))}
+									</SelectDados>
+							</InfoProducts>
 					</Grid>
 				</Viwer>
 			</Painel>

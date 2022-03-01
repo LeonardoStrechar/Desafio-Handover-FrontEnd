@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { read_cookie, delete_cookie } from "sfcookies";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Card from "../components/card";
-import { Svg, Header, Title, User, RedesSociais, Rede, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoTable, InfoRespose, InfoTitle, InfoRequest, Infos } from "../style-components";
+import CardMenu from "../components/card-menu";
+import HeaderT from "../components/header";
+import { Svg, Title, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoTable, InfoTitle, InfoRequest } from "../style-components";
 
 import { ReactComponent as Background } from "../../images/Background.svg";
-import { ReactComponent as IconFacebook } from "../../images/IconFacebook.svg";
-import { ReactComponent as IconInstagram } from "../../images/IconInstagram.svg";
-import { ReactComponent as IconLinkedin } from "../../images/IconLinkedin.svg";
 
 const LogoutStyle = {
 	top: "290px",
@@ -103,6 +101,8 @@ export default function MenuPrincipal() {
 	const tinta = tintas.products
 	const quimico = quimicos.products
 
+	console.log(quimico);
+
 
 	return (
 		<div>
@@ -110,25 +110,7 @@ export default function MenuPrincipal() {
 				<Background />
 			</Svg>
 			<div>
-				<Header>
-					<User fontSize={16}>Bem vindo, Leonardo strechar</User>
-					<Title fontSize={20}>HandOver </Title>
-					<RedesSociais>
-						<Rede>
-							<a href="https://www.facebook.com/leonardo.strechar.1" target="_blank">
-								<IconFacebook />
-							</a>
-							<Rede></Rede>
-							<a href="https://www.instagram.com/leonardo_strechar/" target="_blank">
-								<IconInstagram />
-							</a>
-							<Rede></Rede>
-							<a href="https://www.linkedin.com/in/leonardo-strechar-a9875a1ab/" target="_blank">
-								<IconLinkedin />
-							</a>
-						</Rede>
-					</RedesSociais>
-				</Header>
+				<HeaderT/>
 			</div>
 			<Painel>
 				<Sidebar>
@@ -153,33 +135,37 @@ export default function MenuPrincipal() {
 						<InfoTable background="white">
 							<InfoTitle>FOTOLITO</InfoTitle>
 							<br />
-							<InfoRequest>Estoque</InfoRequest>
-							<InfoRespose>120</InfoRespose>
-
+							<InfoRequest>Estoque /Litros  / Quantidade</InfoRequest>
 							{fotolito?.map((info) => (
-								<Card name={info.name} tipo={info.liters} quantidade={info.amount} />
+								<CardMenu name={info.name} tipo={info.liters} quantidade={info.amount} />
 							))}
 
 						</InfoTable>
 						<InfoTable background="white">
 							<InfoTitle>CHAPAS</InfoTitle>
 							<br />
-							<InfoRequest>Estoque</InfoRequest>
-							<InfoRespose>120</InfoRespose>
+							<InfoRequest>Estoque /Tamanho  / Quantidade</InfoRequest>
+							{chapa?.map((info) => (
+								<CardMenu name={info.name} tipo={info.size} quantidade={info.amount} />
+							))}
 						</InfoTable>
 					</Grid>
 					<Grid>
 						<InfoTable background="white">
 							<InfoTitle>TINTAS</InfoTitle>
 							<br />
-							<InfoRequest>Estoque</InfoRequest>
-							<InfoRespose>120</InfoRespose>
+							<InfoRequest>Estoque /Tipo  / Quantidade</InfoRequest>
+							{tinta?.map((info) => (
+								<CardMenu name={info.name} tipo={info.type} quantidade={info.amount} />
+							))}
 						</InfoTable>
 						<InfoTable background="white">
 							<InfoTitle>QUIMICOS</InfoTitle>
 							<br />
-							<InfoRequest>Estoque</InfoRequest>
-							<InfoRespose>120</InfoRespose>
+							<InfoRequest>Estoque /Usabilidade  / Quantidade</InfoRequest>
+							{quimico?.map((info) => (
+								<CardMenu name={info.name} tipo={info.usability} quantidade={info.amount} />
+							))}
 						</InfoTable>
 					</Grid>
 				</Viwer>
