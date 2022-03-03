@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { read_cookie, delete_cookie } from "sfcookies";
+import { read_cookie } from "sfcookies";
 import axios from "axios";
 import Card from "../components/card";
 import HeaderT from "../components/header";
-import { Dados, Select, Svg, Title, Label, Input, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados, Salvar } from "../style-components";
+import Sidebar from "../components/sidebar";
+import { Dados, Select, Svg, Label, Input, Viwer, Painel, Grid, InfoProducts, SelectDados, Salvar } from "../style-components";
 
 import { ReactComponent as ImgChapa } from "../../images/Chapas.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
@@ -22,14 +22,6 @@ const InputStyle = {
 	width: "80px",
 	margin: "10px 50px 20px 0",
 };
-const ColorWhiteStyle = {
-	background: "green",
-	color: "white",
-};
-const ButtonMenuStyle = {
-	textAlign: "center",
-	fontSize: "18px",
-};
 
 export default function Chapas() {
 	const ProductTypeId = "2";
@@ -39,8 +31,6 @@ export default function Chapas() {
 	const [name, setNome] = useState("");
 	const liters = null;
 	const [amount, setQuantidade] = useState("");
-
-	const navigate = useNavigate();
 
 	const [chapas, setChapas] = useState([]);
 	const authorization = read_cookie("authorization");
@@ -88,11 +78,6 @@ export default function Chapas() {
 		});
 	}
 
-	function FunctionLogout(){
-		delete_cookie("authorization");
-		navigate("/menu");
-	}
-	
 	return (
 		<div>
 			<Svg>
@@ -102,25 +87,7 @@ export default function Chapas() {
 				<HeaderT/>
 			</div>
 			<Painel>
-				<Sidebar>
-					<a href="/menu">
-						<ButtonSidebar style={ButtonMenuStyle}>Início</ButtonSidebar>
-					</a>
-					<Title fontSize={20}>PRODUTOS</Title>
-					<a href="/Fotolito">
-						<ButtonSidebar>Fotolito</ButtonSidebar>
-					</a>
-					<a href="/Chapas">
-						<ButtonSidebar style={ColorWhiteStyle}>Chapas</ButtonSidebar>
-					</a>
-					<a href="/Tintas">
-						<ButtonSidebar>Tintas</ButtonSidebar>
-					</a>
-					<a href="/Quimicos">
-						<ButtonSidebar>Quimicos</ButtonSidebar>
-					</a>
-					<Logout onClick={FunctionLogout} >LOGOUT</Logout>
-				</Sidebar>
+				<Sidebar></Sidebar>
 				<Viwer>
 					<h3>Chapas</h3>
 					<Grid>

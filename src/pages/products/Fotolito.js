@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { read_cookie, delete_cookie } from "sfcookies";
+import { read_cookie } from "sfcookies";
 import axios from "axios";
 import Card from "../components/card";
 import HeaderT from "../components/header";
-import { Salvar, Dados, Title, Select, Svg, Label, Input, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
+import Sidebar from "../components/sidebar";
+import { Salvar, Dados, Select, Svg, Label, Input, Viwer, Painel, Grid, InfoProducts, SelectDados } from "../style-components";
 
 import { ReactComponent as ImgFotolito } from "../../images/Fotolito.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
@@ -22,14 +23,6 @@ const InputStyle = {
 	position: "relative",
 	width: "80px",
 	margin: "10px 50px 20px 0",
-};
-const ColorWhiteStyle = {
-	background: "green",
-	color: "white",
-};
-const ButtonMenuStyle = {
-	textAlign: "center",
-	fontSize: "18px",
 };
 
 export default function Fotolito() {
@@ -88,11 +81,6 @@ export default function Fotolito() {
 			alert("Não foi possivel realizar cadastro!");
 		});
 	}
-
-	function FunctionLogout(){
-		delete_cookie("authorization");
-		navigate("/menu");
-	}
 	
 	return (
 		<div>
@@ -103,25 +91,7 @@ export default function Fotolito() {
 				<HeaderT/>
 			</div>
 			<Painel>
-				<Sidebar>
-					<a href="/menu">
-						<ButtonSidebar style={ButtonMenuStyle}>Início</ButtonSidebar>
-					</a>
-					<Title fontSize={20}>PRODUTOS</Title>
-					<a href="/fotolito">
-						<ButtonSidebar style={ColorWhiteStyle}>Fotolito</ButtonSidebar>
-					</a>
-					<a href="/chapas">
-						<ButtonSidebar>Chapas</ButtonSidebar>
-					</a>
-					<a href="/tintas">
-						<ButtonSidebar>Tintas</ButtonSidebar>
-					</a>
-					<a href="/quimicos">
-						<ButtonSidebar>Quimicos</ButtonSidebar>
-					</a>
-					<Logout onClick={FunctionLogout} >LOGOUT</Logout>
-				</Sidebar>
+				
 				<Viwer>
 					<h3>Fotolito</h3>
 					<Grid>

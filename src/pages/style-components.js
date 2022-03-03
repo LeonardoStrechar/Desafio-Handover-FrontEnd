@@ -123,23 +123,56 @@ export const User = styled.h1`
 	font-size: ${(props) => `${props.fontSize}px`};
 	padding-left: 30px;
 `;
-export const Sidebar = styled.div`
+export const Side = styled.div`
 	position: relative;
 	background: #020122;
 	width: 250px;
 	height: 640px;
 	margin-left: 20px;
 	border-radius: 20px;
+	@media (max-width: 700px) {
+		width: 0;
+		position: fixed;
+		z-index: 1;
+		overflow-x: hidden;
+		transition: 1s;
+	}
 `;
 export const Viwer = styled.div`
 	position: relative;
 	background: #020122;
 	width: 100%;
-	height: 640px;
+	height: 100%;
 	margin-left: 20px;
+	padding: 0px 15px 82px 20px;
 	text-align: center;
 	border-radius: 20px;
+	top: 13px;
+	@media (max-width: 700px) {
+		margin: 10px 0px 10px 20px;
+		height: 100%;
+	}
 `;
+export const SpanOpen = styled.button`
+	position: fixed;
+	z-index: -1;
+	overflow-x: hidden;
+	font-size: 23px;
+	background: #30343F;
+	width: 100px;
+	text-align: end;
+	padding-right: 10px;
+	border-radius: 10px;
+	color: white;
+
+	@media (max-width: 700px) {
+		cursor: pointer,
+		backgorund: white;
+		z-index: 1;
+		top: 140px
+	}
+`;
+
 export const Painel = styled.div`
 	position: relative;
 	display: flex;
@@ -189,7 +222,6 @@ export const Salvar = styled.input.attrs((props) => ({
 	border: none;
 	border-radius: 20px;
 	color: black;
-
 	padding: 10px;
 	font-weight: 800;
 	&:hover {
@@ -203,7 +235,10 @@ export const Salvar = styled.input.attrs((props) => ({
 export const Grid = styled.div`
 	position: relative;
 	display: flex;
-	padding: 10px;
+	@media (max-width: 800px) {
+		display: grid;
+		margin: 0px 47px 0px 10px;
+	}
 `;
 
 export const InfoTable = styled.div`
@@ -247,7 +282,7 @@ export const InfoProducts = styled.div`
 	display: grid;
 	background: ${(props) => `${props.background}`};
 	width: 100%;
-	margin: 0px 10px 0px 0px;
+	margin: 20px 0px 0px 0px;
 	padding: 15px;
 	color: black;
 	justify-content: center;

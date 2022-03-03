@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { read_cookie, delete_cookie } from "sfcookies";
+import { read_cookie } from "sfcookies";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Card from "../components/card";
+import Sidebar from "../components/sidebar";
 import HeaderT from "../components/header";
-import { Salvar, Dados, Select, Svg, Title, Label, Input, Sidebar, Viwer, Painel, ButtonSidebar, Logout, Grid, InfoProducts, SelectDados } from "../style-components";
+import { Salvar, Dados, Select, Svg, Label, Input, Viwer, Painel, Grid, InfoProducts, SelectDados } from "../style-components";
 
 import { ReactComponent as ImgQuimicos } from "../../images/Quimicos.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
@@ -21,14 +22,6 @@ const InputStyle = {
 	position: "relative",
 	width: "80px",
 	margin: "10px 50px 20px 0",
-};
-const ColorWhiteStyle = {
-	background: "green",
-	color: "white",
-};
-const ButtonMenuStyle = {
-	textAlign: "center",
-	fontSize: "18px",
 };
 
 export default function Quimicos() {
@@ -88,11 +81,6 @@ export default function Quimicos() {
 			alert("Não foi possivel realizar cadastro!");
 		});
 	}
-
-	function FunctionLogout(){
-		delete_cookie("authorization");
-		navigate("/menu");
-	}
 	
 	return (
 		<div>
@@ -103,25 +91,7 @@ export default function Quimicos() {
 				<HeaderT/>
 			</div>
 			<Painel>
-				<Sidebar>
-					<a href="/menu">
-						<ButtonSidebar style={ButtonMenuStyle}>Início</ButtonSidebar>
-					</a>
-					<Title fontSize={20}>PRODUTOS</Title>
-					<a href="/Fotolito">
-						<ButtonSidebar>Fotolito</ButtonSidebar>
-					</a>
-					<a href="/Chapas">
-						<ButtonSidebar>Chapas</ButtonSidebar>
-					</a>
-					<a href="/Tintas">
-						<ButtonSidebar>Tintas</ButtonSidebar>
-					</a>
-					<a href="/Quimicos">
-						<ButtonSidebar style={ColorWhiteStyle}>Quimicos</ButtonSidebar>
-					</a>
-					<Logout onClick={FunctionLogout} >LOGOUT</Logout>
-				</Sidebar>
+				<Sidebar></Sidebar>
 				<Viwer>
 					<h3>Quimicos</h3>
 					<Grid>

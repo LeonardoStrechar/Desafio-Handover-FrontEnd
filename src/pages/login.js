@@ -40,7 +40,6 @@ export default function Login() {
 				</div>
 				<div>
 					<Title fontSize={23}>Acesse seu armario</Title>
-					{/* <form action="/menu"> */}
 					<Border>
 						<Table padding={30}>
 							<Label color="white">E-mail</Label>
@@ -73,7 +72,6 @@ export default function Login() {
 							</Rede>
 						</RedesSociais>
 					</Border>
-					{/* </form> */}
 				</div>
 			</Container>
 		</div>
