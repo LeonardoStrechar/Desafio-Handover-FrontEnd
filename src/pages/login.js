@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { bake_cookie } from "sfcookies";
 
-import { Container, Label, Table, Title, Border, RedesSociais, Rede, SubTitle, Svg, Input, Button, ButtonLogin, Link } from "./style-components";
+import { Container, Label, Table, Title, Border, RedesSociais, Rede, SubTitle, Svg, Input, ButtonLogin, Link } from "./style-components";
 import { ReactComponent as Background } from "../images/Background.svg";
 import { ReactComponent as IconFacebook } from "../images/IconFacebook.svg";
 import { ReactComponent as IconInstagram } from "../images/IconInstagram.svg";
@@ -16,16 +16,17 @@ export default function Login() {
 
 	function Login() {
 		axios.post("http://localhost:3001/login", {
-				email: email,
-				password: password,
-			})
-			.then((response) => {
-				bake_cookie("authorization", response.data.token);
-				navigate("/menu");
-			})
-			.catch(() => {
-				alert("Não foi possivel realizar seu Login, email ou senha incorreto!");
-			});
+			email: email,
+			password: password,
+		})
+		.then((response) => {
+			bake_cookie("authorization", response.data.token);
+			navigate("/menu");
+		})
+		.catch(() => {
+			alert("Não foi possivel realizar seu Login, email ou senha incorreto!");
+			window.location.reload(false);
+		});
 	}
 
 	return (
@@ -48,7 +49,7 @@ export default function Login() {
 							<br />
 							<Label color="white">Senha</Label>
 							<br />
-							<Input onChange={(e) => setPassword(e.target.value)} required type="text" placeholder="Digite sua senha" />
+							<Input onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="Digite sua senha" />
 							<br />
 						</Table>
 						<ButtonLogin onClick={Login} type="submit" value="ENTRAR" placeholder="ENTRAR" />
@@ -58,15 +59,15 @@ export default function Login() {
 						</Title>
 						<RedesSociais>
 							<Rede>
-								<a href="https://www.facebook.com/leonardo.strechar.1" target="_blank">
+								<a href="https://www.facebook.com/leonardo.strechar.1" target="_blank" rel="noreferrer">
 									<IconFacebook />
 								</a>
 								<Rede></Rede>
-								<a href="https://www.instagram.com/leonardo_strechar/" target="_blank">
+								<a href="https://www.instagram.com/leonardo_strechar/" target="_blank" rel="noreferrer">
 									<IconInstagram />
 								</a>
 								<Rede></Rede>
-								<a href="https://www.linkedin.com/in/leonardo-strechar-a9875a1ab/" target="_blank">
+								<a href="https://www.linkedin.com/in/leonardo-strechar-a9875a1ab/" target="_blank" rel="noreferrer">
 									<IconLinkedin />
 								</a>
 							</Rede>

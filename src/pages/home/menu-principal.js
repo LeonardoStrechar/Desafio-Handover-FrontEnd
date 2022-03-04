@@ -9,7 +9,6 @@ import { Svg, Viwer, Painel, Grid, InfoTable, InfoTitle, InfoRequest } from "../
 import { ReactComponent as Background } from "../../images/Background.svg";
 
 export default function MenuPrincipal() {
-	const authorization = read_cookie("authorization");
 	const [fotolitos, setFotolito] = useState([]);
 	const [chapas, setChapas] = useState([]);
 	const [tintas, setTinta] = useState([]);
@@ -18,75 +17,71 @@ export default function MenuPrincipal() {
 
 // função get fotolito
 	useEffect(() => {
+		const authorization = read_cookie("authorization");
 		axios.get('http://localhost:3001/products/?type=fotolito', {
 			headers: {
-				'authorization': `Bearer ${authorization}` 
+				authorization: `Bearer ${authorization}` 
 			}
 		})
 		.then((response) => {
-			console.log("deu certo fotolito");
 			setFotolito(response.data);
 		}).catch(() => {
-			console.log("no fotolito");
+			alert("Erro ao buscar os dados.")
 		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		
 	}, [])
 
 // função get chapa
 	useEffect(() => {
+		const authorization = read_cookie("authorization");
 		axios.get('http://localhost:3001/products/?type=Chapa', {
 			headers: {
-				'authorization': `Bearer ${authorization}` 
+				authorization: `Bearer ${authorization}` 
 			}
 		})
 		.then((response) => {
-			console.log("deu certo chapa");
 			setChapas(response.data);
 		}).catch(() => {
-			console.log("no chapa");
+			alert("Erro ao buscar os dados.")
 		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		
 	}, [])
 
 // função get tinta
 	useEffect(() => {
+		const authorization = read_cookie("authorization");
 		axios.get('http://localhost:3001/products/?type=Tinta', {
 			headers: {
-				'authorization': `Bearer ${authorization}` 
+				authorization: `Bearer ${authorization}` 
 			}
 		})
 		.then((response) => {
-			console.log("deu certo tinta");
 			setTinta(response.data);
 		}).catch(() => {
-			console.log("no tinta");
+			alert("Erro ao buscar os dados.")
 		});
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 // função get quimicos
 	useEffect(() => {
+		const authorization = read_cookie("authorization");
 		axios.get('http://localhost:3001/products/?type=Quimicos', {
 			headers: {
 				'authorization': `Bearer ${authorization}` 
 			}
 		})
 		.then((response) => {
-			console.log("deu certo quimico");
 			setQuimico(response.data);
 		}).catch(() => {
-			console.log("no quimico");
+			alert("Erro ao buscar os dados.")
 		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		
 	}, [])
 
 	const fotolito = fotolitos.products
 	const chapa = chapas.products
 	const tinta = tintas.products
 	const quimico = quimicos.products
-
-	console.log(quimico);
 
 	return (
 		<div>
@@ -106,7 +101,7 @@ export default function MenuPrincipal() {
 							<br />
 							<InfoRequest>Estoque / Litros / Quantidade</InfoRequest>
 							{fotolito?.map((info) => (
-								<CardMenu name={info.name} tipo={info.liters} quantidade={info.amount} />
+								<CardMenu key={info.id} name={info.name} tipo={info.liters} quantidade={info.amount} />
 							))}
 
 						</InfoTable>
@@ -115,7 +110,7 @@ export default function MenuPrincipal() {
 							<br />
 							<InfoRequest>Estoque / Tamanho / Quantidade</InfoRequest>
 							{chapa?.map((info) => (
-								<CardMenu name={info.name} tipo={info.size} quantidade={info.amount} />
+								<CardMenu key={info.id} name={info.name} tipo={info.size} quantidade={info.amount} />
 							))}
 						</InfoTable>
 					</Grid>
@@ -125,7 +120,7 @@ export default function MenuPrincipal() {
 							<br />
 							<InfoRequest>Estoque / Tipo / Quantidade</InfoRequest>
 							{tinta?.map((info) => (
-								<CardMenu name={info.name} tipo={info.type} quantidade={info.amount} />
+								<CardMenu key={info.id} name={info.name} tipo={info.type} quantidade={info.amount} />
 							))}
 						</InfoTable>
 						<InfoTable background="white">
@@ -133,7 +128,7 @@ export default function MenuPrincipal() {
 							<br />
 							<InfoRequest>Estoque / Usabilidade / Quantidade</InfoRequest>
 							{quimico?.map((info) => (
-								<CardMenu name={info.name} tipo={info.usability} quantidade={info.amount} />
+								<CardMenu key={info.id} name={info.name} tipo={info.usability} quantidade={info.amount} />
 							))}
 						</InfoTable>
 					</Grid>

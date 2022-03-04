@@ -46,11 +46,9 @@ export default function Fotolito() {
 				}
 			})
 			.then((response) => {
-				console.log("deu certo aa");
 				setFotolito(response.data);
-				
 			}).catch(() => {
-				console.log("Não foi possivel realizar cadastro!");
+				alert("Não foi possível Visualizar os dados. Contate o suporte!");
 			});
 
 			// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,13 +89,12 @@ export default function Fotolito() {
 				<HeaderT/>
 			</div>
 			<Painel>
-				
+				<Sidebar/>
 				<Viwer>
 					<h3>Fotolito</h3>
 					<Grid>
 						<InfoProducts>
 							<ImgFotolito />
-							{/* <form action="/menu"> */}
 							<div style={divStyle}>
 								<Label style={LabelStyle} color="white">
 									Nome
@@ -127,15 +124,14 @@ export default function Fotolito() {
 							<div style={divStyle}>
 								<Salvar onClick={AddFotolito} value="SALVAR" placeholder="SALVAR" />
 							</div>
-							{/* </form> */}
 						</InfoProducts>
 						<InfoProducts>
-								<SelectDados overflow="scroll">
-									<Dados>Nome  -  Litragem  -  Quantidade</Dados>
-										{produtos?.map((info) => (
-											<Card name={info.name} tipo={info.liters} quantidade={info.amount} />
-										))}
-								</SelectDados>
+							<SelectDados overflow="scroll">
+								<Dados>Nome  -  Litragem  -  Quantidade</Dados>
+									{produtos?.map((info) => (
+										<Card key={info.id} name={info.name} tipo={info.liters} quantidade={info.amount} />
+									))}
+							</SelectDados>
 						</InfoProducts>
 					</Grid>
 				</Viwer>

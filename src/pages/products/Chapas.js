@@ -42,17 +42,14 @@ export default function Chapas() {
 			}
 		})
 		.then((response) => {
-			console.log("deu certo aa");
 			setChapas(response.data);
-			
 		}).catch(() => {
-			console.log("Não foi possivel realizar cadastro!");
+			alert("Não foi possivel visualizar os dados!");
 		});
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-}, [])
+	}, [])
+
 	const chapa = chapas.products
-	console.log(chapa);
 	
 	function AddChapas() {
 		const authorization = read_cookie("authorization");
@@ -71,7 +68,6 @@ export default function Chapas() {
 		})
 		.then(() => {
 			alert("Item adicionado com sucesso!");
-			
 		})
 		.catch(() => {
 			alert("Não foi possivel realizar cadastro!");
@@ -93,7 +89,6 @@ export default function Chapas() {
 					<Grid>
 						<InfoProducts>
 							<ImgChapa />
-							
 								<div style={divStyle}>
 									<Label style={LabelStyle} color="white">
 										Código
@@ -123,16 +118,15 @@ export default function Chapas() {
 								<div style={divStyle}>
 									<Salvar onClick={AddChapas} value="SALVAR" placeholder="SALVAR" />
 								</div>
-							
 						</InfoProducts>
-							<InfoProducts>
-									<SelectDados overflow="scroll">
-										<Dados>Código - Tamanho - Quantidade</Dados>
-										{chapa?.map((info) => (
-												<Card name={info.name} tipo={info.size} quantidade={info.amount} />
-											))}
-									</SelectDados>
-							</InfoProducts>
+						<InfoProducts>
+								<SelectDados overflow="scroll">
+									<Dados>Código - Tamanho - Quantidade</Dados>
+									{chapa?.map((info) => (
+										<Card key={info.id} name={info.name} tipo={info.size} quantidade={info.amount} />
+									))}
+								</SelectDados>
+						</InfoProducts>
 					</Grid>
 				</Viwer>
 			</Painel>

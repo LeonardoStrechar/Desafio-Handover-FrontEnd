@@ -45,18 +45,14 @@ export default function Quimicos() {
 			}
 		})
 		.then((response) => {
-			console.log("deu certo aa");
 			setQuimico(response.data);
-			
 		}).catch(() => {
-			console.log("Não foi possivel realizar cadastro!");
+			alert("Não foi possivel visualizar os dados!");
 		});
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
 
 	const quimicos = quimico.products
-	//console.log(quimicos);
 	
 	function AddQuimicos() {
 		const authorization = read_cookie("authorization");
@@ -91,13 +87,12 @@ export default function Quimicos() {
 				<HeaderT/>
 			</div>
 			<Painel>
-				<Sidebar></Sidebar>
+				<Sidebar/>
 				<Viwer>
 					<h3>Quimicos</h3>
 					<Grid>
 						<InfoProducts>
 							<ImgQuimicos />
-							
 								<div style={divStyle}>
 									<Label style={LabelStyle} color="white">
 										Nome
@@ -128,15 +123,14 @@ export default function Quimicos() {
 								<div style={divStyle}>
 									<Salvar onClick={AddQuimicos} value="SALVAR" placeholder="SALVAR" />
 								</div>
-							
 						</InfoProducts>
 						<InfoProducts>
 							<form>
 								<SelectDados overflow="scroll">
 									<Dados>Nome - tipo - quantidade</Dados>
 									{quimicos?.map((info) => (
-											<Card name={info.name} tipo={info.usability} quantidade={info.amount} />
-										))}
+										<Card key={info.id} name={info.name} tipo={info.usability} quantidade={info.amount} />
+									))}
 								</SelectDados>
 							</form>
 						</InfoProducts>

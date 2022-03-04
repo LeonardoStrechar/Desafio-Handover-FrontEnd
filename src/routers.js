@@ -12,19 +12,14 @@ import Quimicos from "./pages/products/Quimicos";
 
 function useAuth() {
 	const token = read_cookie("authorization");
-	console.log(token);
-	 
 	if( token.length <= 0){
-	 	console.log("menor que 0");
-		return false;	}
-	else {
-	 	console.log("maior que 0");
+		return false;	
+	} else {
 		return true;
 	}
 };
 
 function PrivateRoute({ children }) {
-	console.log(useAuth());
 	const auth = useAuth();
     return auth ? children : <Navigate to="/" /> ;
 };
@@ -33,11 +28,16 @@ export default function Rotas() {
 	return (
 		<BrowserRouter>
 			<Routes>
+			{/* Rotas Públicas */}
 				<Route path="/" element={<Login />} />
 				<Route path="/Cadastro" element={<Register />} />
-				<Route path="/fotolito" element={<Fotolito />} />
-				<Route path="/chapas" element={<Chapas />} />
-				<Route path="/quimicos" element={<Quimicos />} />
+
+			{/* Rotas Privadas */}
+				<Route path="/menu" element={
+					<PrivateRoute>
+						<MenuPrincipal />
+					</PrivateRoute>
+				} />
 
 				<Route path="/tintas" element={
 					<PrivateRoute>
@@ -45,9 +45,21 @@ export default function Rotas() {
 					</PrivateRoute>
 				} />
 
-				<Route path="/menu" element={
+				<Route path="/fotolito" element={
 					<PrivateRoute>
-						<MenuPrincipal />
+						<Fotolito />
+					</PrivateRoute>
+				} />
+
+				<Route path="/chapas" element={
+					<PrivateRoute>
+						<Chapas />
+					</PrivateRoute>
+				} />
+
+				<Route path="/quimicos" element={
+					<PrivateRoute>
+						<Quimicos />
 					</PrivateRoute>
 				} />
 			</Routes>

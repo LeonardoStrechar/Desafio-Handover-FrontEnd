@@ -45,17 +45,14 @@ export default function Tintas() {
 			}
 		})
 		.then((response) => {
-			console.log("deu certo aa");
 			setTinta(response.data);
-			
 		}).catch(() => {
-			console.log("Não foi possivel realizar cadastro!");
+			console.log("Não foi possivel visualizar os dados!");
 		});
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
+
 	const tinta = tintas.products
-	console.log(tintas);
 	
 	function AddTintas() {
 		const authorization = read_cookie("authorization");
@@ -128,9 +125,9 @@ export default function Tintas() {
 						<InfoProducts>
 								<SelectDados overflow="scroll">
 								<Dados>Nome - Tipo - Quantidade</Dados>
-										{tinta?.map((info) => (
-											<Card name={info.name} tipo={info.type} quantidade={info.amount} />
-										))}
+									{tinta?.map((info) => (
+										<Card key={info.id} name={info.name} tipo={info.type} quantidade={info.amount} />
+									))}
 								</SelectDados>
 						</InfoProducts>
 					</Grid>

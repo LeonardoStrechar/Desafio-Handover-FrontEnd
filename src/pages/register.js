@@ -14,18 +14,18 @@ export default function Register() {
 	const navigate = useNavigate();
 
 	function Register() {
-		axios
-			.post("http://localhost:3001/register", {
-				name: name,
-				email: email,
-				password: password,
-			})
-			.then(() => {
-				navigate("/");
-			})
-			.catch(() => {
-				alert("Não foi possivel realizar seu cadastro!");
-			});
+		axios.post("http://localhost:3001/register", {
+			name: name,
+			email: email,
+			password: password,
+		})
+		.then((response) => {
+			alert("PARABÉNS!!! você foi cadastrado com sucesso.")
+			navigate("/");
+		})
+		.catch(() => {
+			alert("Não foi possivel realizar seu cadastro!");
+		});
 	}
 
 	return (
@@ -63,15 +63,15 @@ export default function Register() {
 						</Title>
 						<RedesSociais>
 							<Rede>
-								<a href="https://www.facebook.com/leonardo.strechar.1" target="_blank">
+								<a href="https://www.facebook.com/leonardo.strechar.1" target="_blank" rel="noreferrer">
 									<IconFacebook />
 								</a>
 								<Rede></Rede>
-								<a href="https://www.instagram.com/leonardo_strechar/" target="_blank">
+								<a href="https://www.instagram.com/leonardo_strechar/" target="_blank" rel="noreferrer">
 									<IconInstagram />
 								</a>
 								<Rede></Rede>
-								<a href="https://www.linkedin.com/in/leonardo-strechar-a9875a1ab/" target="_blank">
+								<a href="https://www.linkedin.com/in/leonardo-strechar-a9875a1ab/" target="_blank" rel="noreferrer">
 									<IconLinkedin />
 								</a>
 							</Rede>
