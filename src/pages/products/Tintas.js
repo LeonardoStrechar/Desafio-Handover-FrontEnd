@@ -1,30 +1,25 @@
+//Todos os imports para as funcionalidades da pagína
 import React, { useEffect, useState } from "react";
 import { read_cookie } from "sfcookies";
 import axios from "axios";
-import Card from "../components/card";
 import HeaderT from "../components/header";
 import Sidebar from "../components/sidebar";
 import { useNavigate } from "react-router-dom";
-import { Salvar, Dados, Select, Svg, Label, Input, Viwer, Painel, Grid, InfoProducts, SelectDados } from "../style-components";
+import { Submit, Select, Svg, Label, Input, Viwer, Painel, Grid, InfoProducts, Hr } from "../style-components";
 
+//Import de algumas imagens
 import { ReactComponent as ImgTinta } from "../../images/Tinta.svg";
 import { ReactComponent as Background } from "../../images/Background.svg";
 
-const divStyle = {
-	position: "relative",
-	paddingTop: "20px",
-};
-const LabelStyle = {
-	position: "relative",
-	padding: "10px",
-};
+//Estilização criada somente para essa pagina
 const InputStyle = {
 	position: "relative",
 	width: "80px",
-	margin: "10px 50px 20px 0",
+	marginTop: "10px",
 };
 
 export default function Tintas() {
+//Constantes que armazenam dados para realizar a requisição via POST	
 	const ProductTypeId = "3";
 	const size = null;
 	const liters = null;
@@ -33,11 +28,22 @@ export default function Tintas() {
 	const [type, setTipo] = useState("");
 	const [amount, setQuantidade] = useState("");
 
-	const navigate = useNavigate();
+//Constantes que armazenam dados para realizar a requisição via PUT
+	const [idAlter, setIdAlter] = useState("");
+	const [newName, setNewName] = useState("");
+	const [newType, setNewType] = useState("");
+	const [newQuantidade, setNewQuantidade] = useState("");
 
+//Constantes que armazenam dados para realizar a requisição via DELETE	
+	const [idDelete, setIdDelete] = useState("");
+//Constantes que armazena a funcionalidade do react-router-dom para redirecionar o usuario a um caminho especifico
+	const navigate = useNavigate();
+//Const armezanando os valores transferidos pelo metodo GET
 	const [tintas, setTinta] = useState([]);
+//Constante armezando o TOKEN de acesso do usuario ao sistema
 	const authorization = read_cookie("authorization");
-	
+
+//Requisição via GET
 	useEffect(() => {
 		axios.get('http://localhost:3001/products/?type=Tinta', {
 			headers: {
@@ -52,8 +58,10 @@ export default function Tintas() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
 
-	const tinta = tintas.products
-	
+//Desestruturação da resposta vinda da API
+	const produtos = tintas.products
+
+//Função para requisição vis POST
 	function AddTintas() {
 		const authorization = read_cookie("authorization");
 		axios.post("http://localhost:3001/products/", {
@@ -77,7 +85,50 @@ export default function Tintas() {
 			alert("Não foi possivel realizar cadastro!");
 		});
 	}
-	
+
+//Função para requisição via PUT
+	function Alter(){
+		const authorization = read_cookie("authorization");
+		axios.put(`http://localhost:3001/products/${idAlter}`, {
+			name: newName,
+			amount: newQuantidade,
+			typeId: ProductTypeId,
+			liters: liters,
+			size: size,
+			type: newType,
+			usability: usability,
+		}, {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
+		})
+		.then(() => {
+			alert("Item alterado com sucesso!");
+			navigate("/menu");
+		})
+		.catch(() => {
+			alert("Não foi possivel realizar alteração");
+		});
+	}
+
+//Function para requisição DELETE
+	function Delete(){
+		const authorization = read_cookie("authorization");
+		axios.delete(`http://localhost:3001/products/${idDelete}`, {
+			headers: {
+				'authorization': `Bearer ${authorization}` 
+			}
+		})
+		.then(() => {
+			alert("Item deletado com sucesso!");
+			navigate("/menu");
+		})
+		.catch(() => {
+			alert("Não foi possivel realizar deletar!");
+		});
+	}
+
+	//Abaixo está a estrutura em HTML juntamente com componentes do STYLED-COMPONENTS
 	return (
 		<div>
 			<Svg>
@@ -87,49 +138,78 @@ export default function Tintas() {
 				<HeaderT/>
 			</div>
 			<Painel>
-				<Sidebar></Sidebar>
+				<Sidebar/>
 				<Viwer>
 					<h3>Tintas</h3>
 					<Grid>
+					{/* Estrutura para Cadastro de novos Produtos	 */}
 						<InfoProducts>
 							<ImgTinta />
-								<div style={divStyle}>
-									<Label style={LabelStyle} color="white">
-										Nome
-									</Label>
-									<Input  onChange={(e) => setNome(e.target.value)} required type="text" placeholder="Nome do fotolito" />
-								</div>
-								<br />
-								<div>
-									<Label style={LabelStyle} color="white">
-										Tipo
-									</Label>
-									<Select  onChange={(e) => setTipo(e.target.value)} name="litragem">
-										<option required defaultValue disabled>
-											Selecione
-										</option>
-										<option value="Verão">verão</option>
-										<option value="Inverno">inverno</option>
-									</Select>
-								</div>
-								<div style={divStyle}>
-									<Label style={LabelStyle} color="white">
-										Quantidade
-									</Label>
-									<Input onChange={(e) => setQuantidade(e.target.value)} required style={InputStyle} type="number" placeholder="Quantidade de filmes" />
-								</div>
-								<div style={divStyle}>
-									<Salvar onClick={AddTintas} value="SALVAR" placeholder="SALVAR" />
-								</div>
+							<div>
+								<Label color="white">Nome</Label>
+								<Input  onChange={(e) => setNome(e.target.value)} required type="text" placeholder="Nome do fotolito" />
+							</div>
+							<div>
+								<Label color="white">Tipo</Label>
+								<Select  onChange={(e) => setTipo(e.target.value)} name="litragem">
+									<option required>Selecione</option>
+									<option value="Verão">verão</option>
+									<option value="Inverno">inverno</option>
+								</Select>
+							</div>
+							<div>
+								<Label color="white">Quantidade</Label>
+								<Input onChange={(e) => setQuantidade(e.target.value)} required style={InputStyle} type="number" placeholder="Quantidade de filmes" />
+							</div>
+							<br/>
+							<div>
+								<Submit onClick={AddTintas} value="SALVAR" placeholder="SALVAR" />
+							</div>
 						</InfoProducts>
+					{/* Fim da estrutura para Cadastro de novos Produtos*/}
+					{/* Estrutura para Alteração dos Produto */}
 						<InfoProducts>
-								<SelectDados overflow="scroll">
-								<Dados>Nome - Tipo - Quantidade</Dados>
-									{tinta?.map((info) => (
-										<Card key={info.id} name={info.name} tipo={info.type} quantidade={info.amount} />
+							<div>
+								<Label color="white">Selecione uma tinta em estoque para alterar</Label>
+								<Select onChange={(e) => setIdAlter(e.target.value)}>
+									<option required>Nome - Tipo - Quantidade</option>
+									{produtos?.map((info) => (
+										<option key={info.id} value={info.id}> {info.name} - {info.type} - {info.amount} </option>
 									))}
-								</SelectDados>
+								</Select>
+							</div>
+							<div >
+								<Label color="white">Insira as novas informações</Label>
+								<Input onChange={(e) => setNewName(e.target.value)} required style={InputStyle}  type="text"  placeholder="Nome" />
+								<Select onChange={(e) => setNewType(e.target.value)} placeholder="Litragem" style={InputStyle}>
+									<option required>Selecione</option>
+									<option value="verão">verão</option>
+									<option value="inverno">inverno</option>
+								</Select>
+								<Input onChange={(e) => setNewQuantidade(e.target.value)} required style={InputStyle}  type="number"  placeholder="Quantidade" />
+							</div>
+							<div>
+								<Submit onClick={Alter} value="SALVAR ALTERAÇÕES" />
+							</div>
+					{/* Fim da strutura para Alteração dos Produto */}
+							<Hr/>
+					{/* Estrutura para Deletar os produtos */}
+							<div>
+								<Label color="white">
+									Selecione para apagar
+								</Label>
+								<Select onChange={(e) => setIdDelete(e.target.value)}>
+									<option required disabled>Nome - Tipo - Quantidade</option>
+									{produtos?.map((info) => (
+										<option key={info.id} value={info.id}> {info.name} - {info.type} - {info.amount} </option>
+									))}
+								</Select>
+							</div>
+							<div>
+								<Submit onClick={Delete} value="DELETAR ITEM" />
+							</div>
 						</InfoProducts>
+					{/* Fim da estrutura para Deletar os produtos */}
 					</Grid>
 				</Viwer>
 			</Painel>

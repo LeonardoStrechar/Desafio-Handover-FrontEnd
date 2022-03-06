@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const Hr = styled.p`
+	background: white;
+	height: 1px;
+	border: none;
+	border-radius: 20px;
+	opacity: 0.2;
+	margin: 0px 40px 0px 40px; 
+`;
+
 export const Title = styled.h1`
 	position: relative;
 	text-align: center;
@@ -45,6 +54,7 @@ export const Table = styled.table`
 `;
 
 export const Label = styled.label`
+	display: grid;
 	font-size: 15px;
 	color: ${(props) => `${props.color}`};
 `;
@@ -59,8 +69,8 @@ export const Input = styled.input`
 	border-radius: 20px;
 	padding: 10px 60px;
 	font-size: 14px;
-	width: 210px;
-
+	min-width: 210px;
+	 
 	@media (min-width: 800px) {
 		padding: 13px;
 	}
@@ -144,7 +154,7 @@ export const Viwer = styled.div`
 	width: 100%;
 	height: 100%;
 	margin-left: 20px;
-	padding: 0px 15px 82px 20px;
+	padding: 0px 15px 5px 20px;
 	text-align: center;
 	border-radius: 20px;
 	top: 13px;
@@ -213,7 +223,7 @@ export const Logout = styled.button`
 		font-weight: 800;
 	}
 `;
-export const Salvar = styled.input.attrs((props) => ({
+export const Submit = styled.input.attrs((props) => ({
 	type: "submit",
 }))`
 	position: relative;
@@ -224,11 +234,15 @@ export const Salvar = styled.input.attrs((props) => ({
 	color: black;
 	padding: 10px;
 	font-weight: 800;
+	cursor: pointer;
 	&:hover {
 		background: #ffa200;
 		color: white;
 		font-weight: bolder;
 		font-weight: 800;
+	}
+	@media (max-width: 700px) {
+		margin-top: 20px;
 	}
 `;
 
@@ -282,7 +296,6 @@ export const InfoProducts = styled.div`
 	display: grid;
 	background: ${(props) => `${props.background}`};
 	width: 100%;
-	margin: 20px 0px 0px 0px;
 	padding: 15px;
 	color: black;
 	justify-content: center;
@@ -295,11 +308,11 @@ export const Form = styled.form`
 `;
 
 export const Select = styled.select`
-	padding: 11px 60px;
+	padding: 12px 60px;
 	border: none;
 	border-radius: 20px;
 	font-size: 14px;
-	width: 200px;
+	min-width: 240px;
 `;
 export const SelectDados = styled.div`
 	position: relative;

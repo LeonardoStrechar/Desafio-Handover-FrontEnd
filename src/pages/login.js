@@ -44,11 +44,8 @@ export default function Login() {
 					<Border>
 						<Table padding={30}>
 							<Label color="white">E-mail</Label>
-							<br />
 							<Input onChange={(e) => setEmail(e.target.value)} required type="email" placeholder="Digite seu e-mail" />
-							<br />
 							<Label color="white">Senha</Label>
-							<br />
 							<Input onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="Digite sua senha" />
 							<br />
 						</Table>

@@ -44,17 +44,11 @@ export default function Register() {
 					<Border>
 						<Table padding={30}>
 							<Label color="white">Nome</Label>
-							<br />
 							<Input onChange={(e) => setName(e.target.value)} type="text" required placeholder="Digite seu nome completo" />
-							<br />
 							<Label color="white">E-mail</Label>
-							<br />
 							<Input onChange={(e) => setEmail(e.target.value)} type="email" required placeholder="Digite seu email" />
-							<br />
 							<Label color="white">Senha</Label>
-							<br />
 							<Input onChange={(e) => setPassword(e.target.value)} type="password" required placeholder="Digite sua senha" />
-							<br />
 						</Table>
 						<ButtonLogin onClick={Register} type="submit" value="CADASTRE-SE" placeholder="CADASTRE-SE" />
 						<Title fontSize={15}>OU</Title>
