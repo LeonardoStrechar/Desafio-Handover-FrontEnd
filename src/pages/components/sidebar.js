@@ -13,16 +13,8 @@ export default function Sidebar(){
         navigate("/");
     }
 
-    function OpenNav() {
-        console.log("1");
-        document.getElementById("mySidenav").className.width = "250px";
-        
-    }
-    
-  
     return (
         <div>
-            {/* <SpanOpen onClick={OpenNav}>open &#9776;</SpanOpen> */}
             <Side id="sidebar">
                 <Title fontSize={20}>PRODUTOS</Title>
                 <a href="/menu">

@@ -142,8 +142,8 @@ export const Side = styled.div`
 	border-radius: 20px;
 	@media (max-width: 700px) {
 		width: 0;
-		position: fixed;
 		z-index: 1;
+		
 		overflow-x: hidden;
 		transition: 1s;
 	}
